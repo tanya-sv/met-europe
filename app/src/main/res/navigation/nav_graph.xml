@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/DepartmentsFragment">
+
+    <fragment
+        android:id="@+id/DepartmentsFragment"
+        android:name="com.metgallery.ui.DepartmentsFragment"
+        android:label="@string/departments_fragment_label"
+        tools:layout="@layout/fragment_departments">
+
+        <action
+            android:id="@+id/action_DepartmentsFragment_to_CollectionFragment"
+            app:destination="@id/CollectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/CollectionFragment"
+        android:name="com.metgallery.ui.CollectionFragment"
+        android:label="@string/collection_fragment_label"
+        tools:layout="@layout/fragment_collection">
+
+        <action
+            android:id="@+id/action_CollectionFragment_to_DepartmentsFragment"
+            app:destination="@id/DepartmentsFragment" />
+
+        <action
+            android:id="@+id/action_CollectionFragment_to_ItemDetailsFragment"
+            app:destination="@id/ItemDetailsFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/ItemDetailsFragment"
+        android:name="com.metgallery.ui.ItemDetailsFragment"
+        android:label="@string/item_details_fragment_label"
+        tools:layout="@layout/fragment_item_details">
+
+        <action
+            android:id="@+id/action_ItemDetailsFragment_to_CollectionFragment"
+            app:destination="@id/CollectionFragment" />
+
+    </fragment>
+</navigation>
