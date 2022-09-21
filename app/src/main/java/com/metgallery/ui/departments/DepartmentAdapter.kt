@@ -21,7 +21,8 @@ class DepartmentAdapter(private val viewModel: DepartmentsViewModel) :
         holder.bind(viewModel, item)
     }
 
-    class ViewHolder private constructor(val binding: ListItemDepartmentBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(private val binding: ListItemDepartmentBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(viewModel: DepartmentsViewModel, item: MetDepartment) {
             binding.viewmodel = viewModel

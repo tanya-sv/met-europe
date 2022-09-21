@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/CollectionFragment"
-        android:name="com.metgallery.ui.CollectionFragment"
+        android:name="com.metgallery.ui.collection.CollectionFragment"
         android:label="@string/collection_fragment_label"
         tools:layout="@layout/fragment_collection">
 
