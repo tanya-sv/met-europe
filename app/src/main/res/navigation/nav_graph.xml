@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/DepartmentsFragment"
-        android:name="com.metgallery.ui.DepartmentsFragment"
+        android:name="com.metgallery.ui.departments.DepartmentsFragment"
         android:label="@string/departments_fragment_label"
         tools:layout="@layout/fragment_departments">
 
