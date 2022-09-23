@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/ItemDetailsFragment"
-        android:name="com.metgallery.ui.ItemDetailsFragment"
+        android:name="com.metgallery.ui.item_details.ItemDetailsFragment"
         android:label="@string/item_details_fragment_label"
         tools:layout="@layout/fragment_item_details">
 
