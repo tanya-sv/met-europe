@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="android.view.View" />
-
         <variable
             name="viewmodel"
             type="com.metgallery.ui.item_details.ItemDetailsViewModel" />
@@ -15,7 +13,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="16dp">
+        android:padding="12dp">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/itemDetails"
@@ -41,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
-                android:text="@{viewmodel.itemDetails.title}"
+                android:text="@{viewmodel.itemDetails.title + `, ` + viewmodel.itemDetails.objectDate}"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:text="Title" />
@@ -50,17 +48,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="6dp"
-                android:text="@{viewmodel.itemDetails.artistDisplayName + `(` + viewmodel.itemDetails.artistDisplayBio + `)`}"
+                android:text="@{viewmodel.itemDetails.artistDisplayName + ` (` + viewmodel.itemDetails.artistDisplayBio + `)`}"
                 android:textSize="16sp"
                 tools:text="Artist Name (Artist Bio)" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="6dp"
-                android:text="@{viewmodel.itemDetails.objectDate}"
-                android:textSize="16sp"
-                tools:text="1777" />
 
             <TextView
                 android:layout_width="wrap_content"

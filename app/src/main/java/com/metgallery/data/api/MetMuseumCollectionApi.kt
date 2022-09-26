@@ -9,10 +9,10 @@ import retrofit2.http.Query
 //"https://metmuseum.org/api/collection/collectionlisting/"
 
 interface MetMuseumCollectionApi {
-
     @Headers(
-        "Accept: application/json",
-        "User-Agent: Test Met Gallery"
+        "accept: application/json",
+        "Content-Type: application/json",
+        "user-Agent: Test Met Gallery"
     )
     @GET("/api/collection/collectionlisting")
     suspend fun getCollectionByQuery(
