@@ -8,7 +8,6 @@ data class MetCollectionItem(
     val title: String,
     val description: String,
     val artist: String,
-    val culture: String,
     val teaserText: String,
     val url: String,
     val image: String,

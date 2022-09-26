@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.metgallery.data.api.model.MetCollectionItem
 import com.metgallery.ui.databinding.FragmentItemDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,7 +16,11 @@ class ItemDetailsFragment : Fragment() {
 
     private lateinit var viewDataBinding: FragmentItemDetailsBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         viewDataBinding = FragmentItemDetailsBinding.inflate(inflater, container, false).apply {
             viewmodel = viewModel
         }
@@ -28,9 +31,9 @@ class ItemDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
 
-        val item = arguments?.getParcelable<MetCollectionItem>("itemDetails")
-        item?.let {
-            viewModel.start(it)
+        val objectId = arguments?.getInt("objectId")
+        objectId?.let {
+            viewModel.start(objectId)
         }
     }
 }

@@ -21,7 +21,11 @@ class CollectionFragment : Fragment() {
 
     private lateinit var viewDataBinding: FragmentCollectionBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         viewDataBinding = FragmentCollectionBinding.inflate(inflater, container, false).apply {
             viewmodel = viewModel
         }
@@ -45,8 +49,13 @@ class CollectionFragment : Fragment() {
         }
 
         viewModel.selectedItem.observe(this.viewLifecycleOwner, EventObserver {
+
+            val objectId = it.url
+                .substringAfter("/art/collection/search/")
+                .substringBefore("?").toInt()
+
             val bundle = bundleOf(
-                "itemDetails" to it
+                "objectId" to objectId
             )
             findNavController().navigate(R.id.action_CollectionFragment_to_ItemDetailsFragment, bundle)
         })

@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.metgallery.data.api.model.MetCollectionItem
 import com.metgallery.data.api.model.MetObject
 import com.metgallery.domain.GetObjectDetailsById
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,28 +14,33 @@ import javax.inject.Inject
 class ItemDetailsViewModel @Inject constructor(private val getObjectDetailsById: GetObjectDetailsById) :
     ViewModel() {
 
-    private val _itemDetails = MutableLiveData<MetObject>()
-    val itemDetails: LiveData<MetObject> = _itemDetails
+    private val _itemDetails = MutableLiveData<MetObject>().apply { value = MetObject() }
+    val itemDetails: LiveData<MetObject?> = _itemDetails
 
-    private val _item = MutableLiveData<MetCollectionItem>()
-    val item: LiveData<MetCollectionItem> = _item
+    private val _isDataAvailable = MutableLiveData<Boolean>()
+    val isDataAvailable: LiveData<Boolean> = _isDataAvailable
 
     private val _dataLoading = MutableLiveData<Boolean>()
     val dataLoading: LiveData<Boolean> = _dataLoading
 
-    fun start(collectionItem: MetCollectionItem) {
-        _dataLoading.value = true
-        _item.value = collectionItem
+    fun start(objectId: Int) {
+        if (_isDataAvailable.value == true || _dataLoading.value == true) {
+            return
+        }
 
-        val objectId = collectionItem.url
-            .substringAfter("/art/collection/search/")
-            .substringBefore("?").toInt()
+        _dataLoading.value = true
 
         viewModelScope.launch {
             val result = getObjectDetailsById(objectId)
-            result?.let {
-                _itemDetails.value = it
+
+            if (result == null) {
+                _itemDetails.value = null
+                _isDataAvailable.value = false
+            } else {
+                _itemDetails.value = result
+                _isDataAvailable.value = true
             }
+
             _dataLoading.value = false
         }
     }

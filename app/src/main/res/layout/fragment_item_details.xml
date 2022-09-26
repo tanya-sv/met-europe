@@ -17,55 +17,95 @@
         android:layout_height="match_parent"
         android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/ivItemDetailsImage"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/itemDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/title"
-            android:scaleType="fitCenter"
+            android:orientation="vertical"
+            android:visibility="@{viewmodel.isDataAvailable() ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:imageUrl="@{viewmodel.item.image}"
-            tools:src="@drawable/ic_launcher_background" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/tvItemDetailsTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivItemDetailsImage"
-            android:text="@{viewmodel.itemDetails.title}"
-            tools:text="Some test title by Author, 1777" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/title"
+                android:scaleType="fitCenter"
+                app:imageUrl="@{viewmodel.itemDetails.primaryImageSmall ?? ``}"
+                tools:src="@drawable/ic_launcher_background" />
 
-        <TextView
-            android:id="@+id/tvItemDetailsDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvItemDetailsTitle"
-            android:text="@{viewmodel.item.description}"
-            tools:text="Some long long description of the item" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:text="@{viewmodel.itemDetails.title}"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                tools:text="Title" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:text="@{viewmodel.itemDetails.artistDisplayName + `(` + viewmodel.itemDetails.artistDisplayBio + `)`}"
+                android:textSize="16sp"
+                tools:text="Artist Name (Artist Bio)" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:text="@{viewmodel.itemDetails.objectDate}"
+                android:textSize="16sp"
+                tools:text="1777" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:text="@{viewmodel.itemDetails.medium}"
+                android:textSize="16sp"
+                tools:text="Oil on canvas" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:text="@{viewmodel.itemDetails.dimensions}"
+                android:textSize="16sp"
+                tools:text="25 3/4 x 32 1/4 in. (65.4 x 81.9 cm)" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:text="@{viewmodel.itemDetails.classification}"
+                android:textSize="16sp"
+                tools:text="Paintings" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="6dp"
+                android:text="@{viewmodel.itemDetails.creditLine}"
+                android:textSize="16sp"
+                tools:text="Bequest of Stephen C. Clark, 1960" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
         <ProgressBar
             android:id="@+id/indeterminateBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="@{viewmodel.dataLoading ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="@id/itemDetails"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:visibility="@{viewmodel.dataLoading ? View.VISIBLE : View.GONE}"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
