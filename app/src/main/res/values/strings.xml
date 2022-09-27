@@ -2,11 +2,13 @@
     <string name="app_name">MET Gallery</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="departments_fragment_label">Met Departments</string>
+    <string name="first_page_fragment_label">First Page</string>
     <string name="collection_fragment_label">Collection</string>
     <string name="item_details_fragment_label">Item Details</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="title">Title</string>
     <string name="collection_item">Collection Item</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

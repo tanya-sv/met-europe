@@ -3,16 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/DepartmentsFragment">
+    app:startDestination="@id/FirstPageFragment">
 
     <fragment
-        android:id="@+id/DepartmentsFragment"
-        android:name="com.metgallery.ui.departments.DepartmentsFragment"
-        android:label="@string/departments_fragment_label"
-        tools:layout="@layout/fragment_departments">
+        android:id="@+id/FirstPageFragment"
+        android:name="com.metgallery.ui.first_page.FirstPageFragment"
+        android:label="@string/first_page_fragment_label"
+        tools:layout="@layout/fragment_first_page">
 
         <action
-            android:id="@+id/action_DepartmentsFragment_to_CollectionFragment"
+            android:id="@+id/action_FirstPageFragment_to_CollectionFragment"
             app:destination="@id/CollectionFragment" />
     </fragment>
     <fragment
@@ -22,8 +22,8 @@
         tools:layout="@layout/fragment_collection">
 
         <action
-            android:id="@+id/action_CollectionFragment_to_DepartmentsFragment"
-            app:destination="@id/DepartmentsFragment" />
+            android:id="@+id/action_CollectionFragment_to_FirstPageFragment"
+            app:destination="@id/FirstPageFragment" />
 
         <action
             android:id="@+id/action_CollectionFragment_to_ItemDetailsFragment"
