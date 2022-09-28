@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.metgallery.data.api.model.MetCollectionItem
+import com.metgallery.data.model.MetCollectionItem
 import com.metgallery.ui.databinding.ListItemCollectionBinding
 
 class CollectionAdapter(private val viewModel: CollectionViewModel) :
@@ -33,7 +33,7 @@ class CollectionAdapter(private val viewModel: CollectionViewModel) :
         fun bind(viewModel: CollectionViewModel, item: MetCollectionItem) {
             binding.viewmodel = viewModel
             binding.item = item
-            binding.ivCollectionImage.layoutParams.width = getNewImageWidth(binding.root)
+            //binding.ivCollectionImage.layoutParams.width = getNewImageWidth(binding.root)
             binding.executePendingBindings()
         }
 
@@ -64,8 +64,7 @@ class CollectionAdapter(private val viewModel: CollectionViewModel) :
 class CollectionItemDiffCallback : DiffUtil.ItemCallback<MetCollectionItem>() {
 
     override fun areItemsTheSame(oldItem: MetCollectionItem, newItem: MetCollectionItem): Boolean {
-        //TODO replace with id
-        return oldItem.title == newItem.title
+        return oldItem.objectId == newItem.objectId
     }
 
     override fun areContentsTheSame(oldItem: MetCollectionItem, newItem: MetCollectionItem): Boolean {

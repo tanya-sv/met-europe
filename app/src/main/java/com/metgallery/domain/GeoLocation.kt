@@ -1,7 +1,7 @@
 package com.metgallery.domain
 
 //TODO move to resources?
-enum class GeoLocation(value: String) {
+enum class GeoLocation(val apiValue: String) {
     Africa("Africa"),
     Asia("Asia"),
     Austria("Austria"),

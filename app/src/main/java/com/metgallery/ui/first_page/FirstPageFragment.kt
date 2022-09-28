@@ -5,6 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import androidx.fragment.app.findFragment
+import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.metgallery.ui.R
 
 // TODO: Rename parameter arguments, choose names that match
@@ -36,6 +41,16 @@ class FirstPageFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_first_page, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        view.findViewById<Button>(R.id.testButton).setOnClickListener {
+            findNavController().navigate(R.id.action_FirstPageFragment_to_CollectionFragment, Bundle())
+        }
+
+        val imageView = view.findViewById<ImageView>(R.id.testImageView)
+        Glide.with(imageView).load("https://images.metmuseum.org/CRDImages/ep/web-large/DT894.jpg").into(imageView);
     }
 
     companion object {

@@ -1,25 +1,25 @@
 package com.metgallery.hilt
 
+import android.content.Context
+import com.metgallery.data.CollectionRepository
 import com.metgallery.data.api.MetMuseumApi
 import com.metgallery.domain.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
 
     @Provides
-    @Singleton
     fun provideMetMuseumApi(okHttpClient: OkHttpClient): MetMuseumApi {
-
         return Retrofit.Builder().baseUrl("https://collectionapi.metmuseum.org/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
@@ -39,12 +39,20 @@ object AppModule {
     }
 
     @Provides
-    fun provideGetObjectDetailsById(museumApi: MetMuseumApi) : GetObjectDetailsById {
+    fun provideCollectionRepository(
+        museumApi: MetMuseumApi,
+        @ApplicationContext context: Context
+    ): CollectionRepository {
+        return CollectionRepository(museumApi, context)
+    }
+
+    @Provides
+    fun provideGetObjectDetailsById(museumApi: MetMuseumApi): GetObjectDetailsById {
         return GetObjectDetailsByIdImpl(museumApi)
     }
 
     @Provides
-    fun provideGetObjectsByDepartmentId(museumApi: MetMuseumApi) : GetObjectsByDepartmentId {
+    fun provideGetObjectsByDepartmentId(museumApi: MetMuseumApi): GetObjectsByDepartmentId {
         return GetObjectsByDepartmentIdImpl(museumApi)
     }
 

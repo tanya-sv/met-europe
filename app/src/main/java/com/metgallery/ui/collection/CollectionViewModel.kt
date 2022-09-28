@@ -4,7 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.metgallery.data.api.model.MetCollectionItem
+import com.metgallery.data.CollectionRepository
+import com.metgallery.data.model.MetCollectionItem
 import com.metgallery.domain.GetObjectsByDepartmentId
 import com.metgallery.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CollectionViewModel @Inject constructor(private val getObjectsByDepartmentId: GetObjectsByDepartmentId) : ViewModel() {
+class CollectionViewModel @Inject constructor(private val collectionRepository: CollectionRepository) : ViewModel() {
 
     private val _items = MutableLiveData<List<MetCollectionItem>>().apply { value = emptyList() }
     val items: LiveData<List<MetCollectionItem>> = _items
@@ -26,7 +27,7 @@ class CollectionViewModel @Inject constructor(private val getObjectsByDepartment
 
     fun loadCollection(departmentId: Int) {
         viewModelScope.launch {
-            //_items.value = getCollectionByQuery(departmentId)
+            _items.value = collectionRepository.searchEuropeanPaintings(null, null)
         }
     }
 

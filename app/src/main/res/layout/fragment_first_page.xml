@@ -5,10 +5,26 @@
     android:layout_height="match_parent"
     tools:context=".first_page.FirstPageFragment">
 
+    <ImageView
+        android:id="@+id/testImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/hello_blank_fragment" />
+
+
+
+    <Button
+        android:id="@+id/testButton"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:text="CLICK ME"
+        />
 
 </FrameLayout>

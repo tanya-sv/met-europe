@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.metgallery.data.api.model.MetObject
+import com.metgallery.data.model.MetObject
 import com.metgallery.domain.GetObjectDetailsById
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

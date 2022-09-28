@@ -50,12 +50,8 @@ class CollectionFragment : Fragment() {
 
         viewModel.selectedItem.observe(this.viewLifecycleOwner, EventObserver {
 
-            val objectId = it.url
-                .substringAfter("/art/collection/search/")
-                .substringBefore("?").toInt()
-
             val bundle = bundleOf(
-                "objectId" to objectId
+                "objectId" to it.objectId
             )
             findNavController().navigate(R.id.action_CollectionFragment_to_ItemDetailsFragment, bundle)
         })

@@ -1,7 +1,7 @@
 package com.metgallery.domain
 
 import com.metgallery.data.api.MetMuseumApi
-import com.metgallery.data.api.model.MetObject
+import com.metgallery.data.model.MetObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

@@ -1,16 +1,18 @@
 package com.metgallery.ui
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
-import android.view.Menu
-import android.view.MenuItem
 import com.metgallery.ui.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.BufferedReader
+import java.io.InputStreamReader
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

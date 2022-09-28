@@ -1,4 +1,4 @@
-package com.metgallery.data.api.model
+package com.metgallery.data.model
 
 data class MetObject(
     val objectID: Int = 0,
