@@ -1,0 +1,31 @@
+package com.metgallery.data.model
+
+//TODO add "none" or "non-specified"?
+enum class ArtistNationality(val value: String) {
+    Russian("Russian"),
+    Spanish("Spanish"),
+    Italian("Italian"),
+    Swiss("Swiss"),
+    Flemish("Flemish"),
+    French("French"),
+    Dutch("Dutch"),
+    British("British"),
+    Hungarian("Hungarian"),
+    Netherlandish("Netherlandish"),
+    Irish("Irish"),
+    Byzantine("Byzantine"),
+    Portuguese("Portuguese"),
+    Continental("Continental"),
+    Swedish("Swedish"),
+    German("German"),
+    European("European"),
+    Northern_European("Northern European"),
+    Scottish("Scottish"),
+    Greek("Greek"),
+    Danish("Danish"),
+    Austrian("Austrian"),
+    Belgian("Belgian"),
+    American("American"),
+    Welsh("Welsh"),
+    Norwegian("Norwegian"),
+}

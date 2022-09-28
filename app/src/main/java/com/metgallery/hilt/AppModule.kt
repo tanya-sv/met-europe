@@ -46,14 +46,4 @@ object AppModule {
         return CollectionRepository(museumApi, context)
     }
 
-    @Provides
-    fun provideGetObjectDetailsById(museumApi: MetMuseumApi): GetObjectDetailsById {
-        return GetObjectDetailsByIdImpl(museumApi)
-    }
-
-    @Provides
-    fun provideGetObjectsByDepartmentId(museumApi: MetMuseumApi): GetObjectsByDepartmentId {
-        return GetObjectsByDepartmentIdImpl(museumApi)
-    }
-
 }

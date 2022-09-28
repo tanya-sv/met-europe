@@ -30,7 +30,7 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/collection_item"
             android:scaleType="fitCenter"
-            app:imageUrl="@{item.image}"
+            app:imageUrl="@{item.imageUrl}"
             tools:src="@drawable/ic_launcher_background" />
 
     </androidx.cardview.widget.CardView>

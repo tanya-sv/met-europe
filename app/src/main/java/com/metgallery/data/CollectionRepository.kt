@@ -1,50 +1,67 @@
 package com.metgallery.data
 
 import android.content.Context
-import android.util.Log
 import com.metgallery.data.api.MetMuseumApi
 import com.metgallery.data.model.MetCollectionItem
-import com.metgallery.domain.EuropeanCollectionEra
-import com.metgallery.domain.GeoLocation
+import com.metgallery.data.model.MetObject
+import com.metgallery.data.model.ArtistNationality
+import com.metgallery.data.model.EuropeanCollectionEra
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.apache.commons.csv.CSVFormat
+import org.apache.commons.csv.QuoteMode
 import javax.inject.Inject
 
 class CollectionRepository @Inject constructor(
     private val metMuseumApi: MetMuseumApi,
     context: Context
 ) {
-
-    private val objectsImagesMap: MutableMap<Int, String> = mutableMapOf()
+    private val metObjects: MutableMap<Int, MetCollectionItem> = mutableMapOf()
 
     init {
-        context.assets.open("europe_images.csv").bufferedReader().use {
-            it.readLines().forEach { line ->
-                val pair = line.split(",")
-                objectsImagesMap[pair[0].toInt()] = pair[1]
-            }
-            Log.d("myTest", "we have a map: " + objectsImagesMap.keys.size)
+        context.assets.open("met_european_paintings.csv").bufferedReader().use {
+
+            val csvFormat = CSVFormat.Builder
+                .create()
+                .setDelimiter(';')
+                .setTrim(true)
+                .setQuoteMode(QuoteMode.MINIMAL)
+                .build()
+
+            CSVFormat.Builder.create(csvFormat).apply {
+                setIgnoreSurroundingSpaces(true)
+            }.build().parse(it)
+                .drop(1) //skip header
+                .map { elements ->
+
+                    val item = MetCollectionItem(
+                        objectId = elements[0].toInt(),
+                        title = elements[2],
+                        artist = elements[3],
+                        artistNationality = elements[4],
+                        objectBeginDate = elements[6].toInt(),
+                        objectEndDate = elements[7].toInt(),
+                        medium = elements[8],
+                        tags = elements[10].split("|"),
+                        imageUrl = elements[11]
+                    )
+
+                    metObjects[item.objectId] = item
+                }
         }
     }
 
-    suspend fun searchEuropeanPaintings(
-        geoLocation: GeoLocation?,
+    fun searchEuropeanPaintings(
+        artistNationality: ArtistNationality?,
         era: EuropeanCollectionEra?
     ): List<MetCollectionItem> {
 
+        return metObjects.values.toList().subList(0, 10)
+    }
+
+    suspend fun getObjectDetailsById(objectId: Int): MetObject? {
         return withContext(Dispatchers.IO) {
-
-            val response = metMuseumApi.getSearch(
-                departmentId = 11,
-                geoLocation = geoLocation?.apiValue,
-                dateBegin = era?.dateBegin,
-                dateEnd = era?.dateEnd
-            ).body()
-
-            //transform to a list of collection items with image url for each object id
-            response?.objectIDs?.filter { objectsImagesMap.keys.contains(it) }
-                ?.map { MetCollectionItem(it, objectsImagesMap[it]!!) }
-                ?: emptyList()
+            return@withContext metMuseumApi.getObjectById(objectId).body()
         }
     }
 

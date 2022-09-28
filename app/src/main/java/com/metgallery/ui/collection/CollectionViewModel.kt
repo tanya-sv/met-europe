@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.metgallery.data.CollectionRepository
 import com.metgallery.data.model.MetCollectionItem
-import com.metgallery.domain.GetObjectsByDepartmentId
 import com.metgallery.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -30,5 +29,4 @@ class CollectionViewModel @Inject constructor(private val collectionRepository: 
             _items.value = collectionRepository.searchEuropeanPaintings(null, null)
         }
     }
-
 }

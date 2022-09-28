@@ -4,14 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.metgallery.data.CollectionRepository
 import com.metgallery.data.model.MetObject
-import com.metgallery.domain.GetObjectDetailsById
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ItemDetailsViewModel @Inject constructor(private val getObjectDetailsById: GetObjectDetailsById) :
+class ItemDetailsViewModel @Inject constructor(private val collectionRepository: CollectionRepository) :
     ViewModel() {
 
     private val _itemDetails = MutableLiveData<MetObject>().apply { value = MetObject() }
@@ -31,7 +31,7 @@ class ItemDetailsViewModel @Inject constructor(private val getObjectDetailsById:
         _dataLoading.value = true
 
         viewModelScope.launch {
-            val result = getObjectDetailsById(objectId)
+            val result = collectionRepository.getObjectDetailsById(objectId)
 
             if (result == null) {
                 _itemDetails.value = null
@@ -44,5 +44,4 @@ class ItemDetailsViewModel @Inject constructor(private val getObjectDetailsById:
             _dataLoading.value = false
         }
     }
-
 }
