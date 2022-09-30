@@ -1,75 +1,125 @@
 package com.metgallery.ui.first_page
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import androidx.fragment.app.findFragment
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.TextView
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.bumptech.glide.Glide
+import com.metgallery.data.model.ArtistNationality
+import com.metgallery.data.model.EuropeanCollectionEra
 import com.metgallery.ui.R
+import com.metgallery.ui.databinding.FragmentFirstPageBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [FirstPageFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+@AndroidEntryPoint
 class FirstPageFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private val viewModel: FirstPageViewModel by viewModels()
+
+    private lateinit var viewDataBinding: FragmentFirstPageBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first_page, container, false)
+    ): View {
+
+        viewDataBinding = FragmentFirstPageBinding.inflate(inflater, container, false).apply {
+            viewmodel = viewModel
+        }
+        return viewDataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupEraSpinner()
+        setupArtistNationalitySpinner()
 
-        view.findViewById<Button>(R.id.testButton).setOnClickListener {
-            findNavController().navigate(R.id.action_FirstPageFragment_to_CollectionFragment, Bundle())
+        viewDataBinding.buttonShow.setOnClickListener {
+            val bundle = bundleOf(
+                "era" to viewModel.selectedEra,
+                "nationality" to viewModel.selectedArtistNationality
+            )
+            findNavController().navigate(R.id.action_FirstPageFragment_to_CollectionFragment, bundle)
+        }
+    }
+
+    private fun setupEraSpinner() {
+        val adapter = object : ArrayAdapter<EuropeanCollectionEra>(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            EuropeanCollectionEra.values()
+        ) {
+
+            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val textView = super.getDropDownView(position, convertView, parent) as TextView
+                textView.text = EuropeanCollectionEra.values()[position].displayValue
+                textView.gravity = Gravity.CENTER_VERTICAL
+                textView.minHeight = resources.getDimensionPixelSize(R.dimen.default_input_height)
+                return textView
+            }
+
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val textView = super.getView(position, convertView, parent) as TextView
+                textView.text = EuropeanCollectionEra.values()[position].displayValue
+                return textView
+            }
         }
 
-        val imageView = view.findViewById<ImageView>(R.id.testImageView)
-        Glide.with(imageView).load("https://images.metmuseum.org/CRDImages/ep/web-large/DT894.jpg").into(imageView);
-    }
+        viewDataBinding.spinnerEra.apply {
+            this.adapter = adapter
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FirstPageFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FirstPageFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+                    viewModel.selectedEra = EuropeanCollectionEra.values()[position]
+                }
+
+                override fun onNothingSelected(p0: AdapterView<*>?) {
                 }
             }
+        }
     }
+
+    private fun setupArtistNationalitySpinner() {
+        val adapter = object : ArrayAdapter<ArtistNationality>(
+            requireContext(),
+            android.R.layout.simple_spinner_item,
+            ArtistNationality.values()
+        ) {
+            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val textView = super.getDropDownView(position, convertView, parent) as TextView
+                textView.text = ArtistNationality.values()[position].displayValue
+                textView.gravity = Gravity.CENTER_VERTICAL
+                textView.minHeight = resources.getDimensionPixelSize(R.dimen.default_input_height)
+                return textView
+            }
+
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val textView = super.getView(position, convertView, parent) as TextView
+                textView.text = ArtistNationality.values()[position].displayValue
+                return textView
+            }
+        }
+
+        viewDataBinding.spinnerArtisNationality.apply {
+            this.adapter = adapter
+
+            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
+                    viewModel.selectedArtistNationality = ArtistNationality.values()[position]
+                }
+
+                override fun onNothingSelected(p0: AdapterView<*>?) {
+                }
+            }
+        }
+    }
+
 }

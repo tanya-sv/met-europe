@@ -3,7 +3,6 @@ package com.metgallery.hilt
 import android.content.Context
 import com.metgallery.data.CollectionRepository
 import com.metgallery.data.api.MetMuseumApi
-import com.metgallery.domain.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

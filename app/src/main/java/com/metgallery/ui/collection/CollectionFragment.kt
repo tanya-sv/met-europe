@@ -9,6 +9,8 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.metgallery.data.model.ArtistNationality
+import com.metgallery.data.model.EuropeanCollectionEra
 import com.metgallery.ui.R
 import com.metgallery.ui.databinding.FragmentCollectionBinding
 import com.metgallery.util.EventObserver
@@ -34,27 +36,21 @@ class CollectionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
 
         viewDataBinding.rvCollection.adapter = CollectionAdapter(viewModel)
 
-        val departmentId = arguments?.getInt("departmentId")
-        val departmentName = arguments?.getString("departmentName")
+        val era = arguments?.getSerializable("era") as EuropeanCollectionEra? ?: EuropeanCollectionEra.None
+        val artistNationality =
+            arguments?.getSerializable("nationality") as ArtistNationality? ?: ArtistNationality.None
 
-        (activity as AppCompatActivity?)?.supportActionBar?.title = departmentName
-
-        departmentId?.let {
-            viewModel.loadCollection(it)
-        }
+        viewModel.loadCollection(artistNationality, era)
 
         viewModel.selectedItem.observe(this.viewLifecycleOwner, EventObserver {
-
             val bundle = bundleOf(
                 "objectId" to it.objectId
             )
             findNavController().navigate(R.id.action_CollectionFragment_to_ItemDetailsFragment, bundle)
         })
     }
-
 }

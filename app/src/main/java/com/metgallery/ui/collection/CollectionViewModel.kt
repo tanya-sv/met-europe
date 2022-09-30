@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.metgallery.data.CollectionRepository
+import com.metgallery.data.model.ArtistNationality
+import com.metgallery.data.model.EuropeanCollectionEra
 import com.metgallery.data.model.MetCollectionItem
 import com.metgallery.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,9 +26,9 @@ class CollectionViewModel @Inject constructor(private val collectionRepository: 
         _selectedItem.value = Event(item)
     }
 
-    fun loadCollection(departmentId: Int) {
+    fun loadCollection(artistNationality: ArtistNationality, era: EuropeanCollectionEra) {
         viewModelScope.launch {
-            _items.value = collectionRepository.searchEuropeanPaintings(null, null)
+            _items.value = collectionRepository.searchEuropeanPaintings(artistNationality, era)
         }
     }
 }

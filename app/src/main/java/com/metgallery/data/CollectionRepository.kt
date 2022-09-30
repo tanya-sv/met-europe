@@ -51,12 +51,26 @@ class CollectionRepository @Inject constructor(
         }
     }
 
+    fun randomImageUrl() : String {
+        return metObjects.values.random().imageUrl
+    }
+
+    //TODO move data to Room DB, support paging
     fun searchEuropeanPaintings(
-        artistNationality: ArtistNationality?,
-        era: EuropeanCollectionEra?
+        artistNationality: ArtistNationality,
+        era: EuropeanCollectionEra
     ): List<MetCollectionItem> {
 
-        return metObjects.values.toList().subList(0, 10)
+        var values = metObjects.values.toList()
+
+        if (artistNationality != ArtistNationality.None) {
+            values = values.filter { it.artistNationality.contains(artistNationality.displayValue) }
+        }
+
+        if (era != EuropeanCollectionEra.None) {
+            values = values.filter { it.objectBeginDate >= era.dateBegin && it.objectEndDate <= era.dateEnd }
+        }
+        return values.subList(0, if (values.size > 20) 20 else values.size)
     }
 
     suspend fun getObjectDetailsById(objectId: Int): MetObject? {
@@ -64,6 +78,4 @@ class CollectionRepository @Inject constructor(
             return@withContext metMuseumApi.getObjectById(objectId).body()
         }
     }
-
-
 }
