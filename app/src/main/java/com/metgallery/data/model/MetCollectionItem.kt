@@ -13,5 +13,7 @@ data class MetCollectionItem(
     val objectEndDate: Int,
     val medium: String,
     val tags: List<String>,
-    val imageUrl: String
+    val imageUrl: String,
+    val height: Float,
+    val width: Float
 ) : Parcelable

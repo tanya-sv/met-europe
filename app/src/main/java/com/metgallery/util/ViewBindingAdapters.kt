@@ -1,4 +1,4 @@
-package com.metgallery.ui.item_details
+package com.metgallery.util
 
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter

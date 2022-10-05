@@ -43,7 +43,9 @@ class CollectionRepository @Inject constructor(
                         objectEndDate = elements[7].toInt(),
                         medium = elements[8],
                         tags = elements[10].split("|"),
-                        imageUrl = elements[11]
+                        imageUrl = elements[11],
+                        height = elements[12].toFloat(),
+                        width = elements[13].toFloat()
                     )
 
                     metObjects[item.objectId] = item
@@ -51,7 +53,7 @@ class CollectionRepository @Inject constructor(
         }
     }
 
-    fun randomImageUrl() : String {
+    fun randomImageUrl(): String {
         return metObjects.values.random().imageUrl
     }
 

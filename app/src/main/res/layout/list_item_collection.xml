@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:contentDescription="@string/collection_item"
-            android:scaleType="fitCenter"
+            android:scaleType="centerCrop"
             app:imageUrl="@{item.imageUrl}"
             tools:src="@drawable/ic_launcher_background" />
 
