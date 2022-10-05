@@ -27,5 +27,9 @@ enum class ArtistNationality(val displayValue: String) {
     Spanish("Spanish"),
     Swedish("Swedish"),
     Swiss("Swiss"),
-    Welsh("Welsh")
+    Welsh("Welsh");
+
+    fun displayNameOrEmpty() = if (this != None) {
+        displayValue
+    } else ""
 }

@@ -53,6 +53,7 @@ class CollectionRepository @Inject constructor(
         }
     }
 
+    //TODO make it more random? :D
     fun randomImageUrl(): String {
         return metObjects.values.random().imageUrl
     }
