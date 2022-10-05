@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.metgallery.ui.databinding.FragmentItemDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,6 +31,13 @@ class ItemDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
+
+        viewDataBinding.toolbar.apply {
+            setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material)
+            setNavigationOnClickListener {
+                findNavController().popBackStack()
+            }
+        }
 
         val objectId = arguments?.getInt("objectId")
         objectId?.let {

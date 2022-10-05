@@ -38,6 +38,13 @@ class CollectionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
 
+        viewDataBinding.toolbar.apply {
+            setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material)
+            setNavigationOnClickListener {
+                findNavController().popBackStack()
+            }
+        }
+
         viewDataBinding.rvCollection.adapter = CollectionAdapter(viewModel)
 
         val era = arguments?.getSerializable("era") as EuropeanCollectionEra? ?: EuropeanCollectionEra.None

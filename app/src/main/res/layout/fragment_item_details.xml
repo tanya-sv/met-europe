@@ -12,99 +12,121 @@
             type="com.metgallery.ui.item_details.ItemDetailsViewModel" />
     </data>
 
-
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp">
+            android:layout_alignParentTop="true"
+            android:theme="@style/Theme.Launcher.AppBarOverlay">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/itemDetails"
-                android:layout_width="wrap_content"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/Theme.Launcher.PopupOverlay" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/appBarLayout"
+            android:fillViewport="true">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="@{viewmodel.isDataAvailable() ? View.VISIBLE : View.GONE}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:padding="12dp">
 
-                <ImageView
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/itemDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
-                    android:adjustViewBounds="true"
-                    android:contentDescription="@string/title"
-                    android:scaleType="fitCenter"
-                    app:imageUrl="@{viewmodel.itemDetails.primaryImageSmall ?? ``}"
-                    tools:src="@drawable/ic_launcher_background" />
+                    android:orientation="vertical"
+                    android:visibility="@{viewmodel.isDataAvailable() ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="6dp"
+                        android:adjustViewBounds="true"
+                        android:contentDescription="@string/title"
+                        android:scaleType="fitCenter"
+                        app:imageUrl="@{viewmodel.itemDetails.primaryImageSmall ?? ``}"
+                        tools:src="@drawable/ic_launcher_background" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="6dp"
+                        android:text="@{viewmodel.itemDetails.title + `, ` + viewmodel.itemDetails.objectDate}"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        tools:text="Title" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="6dp"
+                        android:text="@{viewmodel.itemDetails.artistDisplayName + ` (` + viewmodel.itemDetails.artistDisplayBio + `)`}"
+                        android:textSize="16sp"
+                        android:visibility="@{viewmodel.itemDetails.artistDisplayName.empty ? View.GONE : View.VISIBLE}"
+                        tools:text="Artist Name (Artist Bio)" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="6dp"
+                        android:text="@{viewmodel.itemDetails.medium}"
+                        android:textSize="16sp"
+                        tools:text="Oil on canvas" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="6dp"
+                        android:text="@{viewmodel.itemDetails.dimensions}"
+                        android:textSize="16sp"
+                        tools:text="25 3/4 x 32 1/4 in. (65.4 x 81.9 cm)" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="6dp"
+                        android:text="@{viewmodel.itemDetails.classification}"
+                        android:textSize="16sp"
+                        tools:text="Paintings" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="6dp"
+                        android:text="@{viewmodel.itemDetails.creditLine}"
+                        android:textSize="16sp"
+                        tools:text="Bequest of Stephen C. Clark, 1960" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <ProgressBar
+                    android:id="@+id/indeterminateBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
-                    android:text="@{viewmodel.itemDetails.title + `, ` + viewmodel.itemDetails.objectDate}"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    tools:text="Title" />
+                    android:visibility="@{viewmodel.dataLoading ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="@id/itemDetails"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
-                    android:text="@{viewmodel.itemDetails.artistDisplayName + ` (` + viewmodel.itemDetails.artistDisplayBio + `)`}"
-                    android:textSize="16sp"
-                    android:visibility="@{viewmodel.itemDetails.artistDisplayName.empty ? View.GONE : View.VISIBLE}"
-                    tools:text="Artist Name (Artist Bio)" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
-                    android:text="@{viewmodel.itemDetails.medium}"
-                    android:textSize="16sp"
-                    tools:text="Oil on canvas" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
-                    android:text="@{viewmodel.itemDetails.dimensions}"
-                    android:textSize="16sp"
-                    tools:text="25 3/4 x 32 1/4 in. (65.4 x 81.9 cm)" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
-                    android:text="@{viewmodel.itemDetails.classification}"
-                    android:textSize="16sp"
-                    tools:text="Paintings" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="6dp"
-                    android:text="@{viewmodel.itemDetails.creditLine}"
-                    android:textSize="16sp"
-                    tools:text="Bequest of Stephen C. Clark, 1960" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <ProgressBar
-                android:id="@+id/indeterminateBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="@{viewmodel.dataLoading ? View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toBottomOf="@id/itemDetails"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </RelativeLayout>
 </layout>
