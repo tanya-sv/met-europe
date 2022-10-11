@@ -24,7 +24,7 @@
             android:adjustViewBounds="true"
             android:alpha="0.9"
             android:scaleType="centerCrop"
-            app:imageUrl="@{viewmodel.randomImageUrl()}"
+            app:imageUrl="@{viewmodel.randomUrl}"
             tools:src="@drawable/ic_launcher_background" />
 
         <TextView

@@ -37,6 +37,8 @@ class FirstPageFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
+
         setupEraSpinner()
         setupArtistNationalitySpinner()
 
