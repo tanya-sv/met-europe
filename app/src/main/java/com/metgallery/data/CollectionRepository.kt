@@ -14,6 +14,7 @@ import javax.inject.Inject
 
 class CollectionRepository @Inject constructor(
     private val metMuseumApi: MetMuseumApi,
+    private val metCollectionDao: MetCollectionDao,
     context: Context
 ) {
     private val metObjects: MutableMap<Int, MetCollectionItem> = mutableMapOf()
