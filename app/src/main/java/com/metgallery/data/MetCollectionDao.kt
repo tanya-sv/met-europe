@@ -12,7 +12,7 @@ interface MetCollectionDao {
     suspend fun getCount(): Int
 
     @Query("SELECT * FROM met_collection_item WHERE objectId=:id ")
-    suspend fun getById(id: String): MetCollectionItem
+    suspend fun getById(id: Int): MetCollectionItem
 
     @Query("SELECT * FROM met_collection_item")
     suspend fun getAll(): List<MetCollectionItem>
