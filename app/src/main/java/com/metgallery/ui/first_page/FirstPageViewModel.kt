@@ -19,5 +19,6 @@ class FirstPageViewModel @Inject constructor(private val collectionRepository: C
 
     var selectedEra = EuropeanCollectionEra.None
     var selectedArtistNationality = ArtistNationality.None
+    var excludeMiniatures: Boolean = false
 
 }

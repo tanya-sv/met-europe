@@ -26,9 +26,9 @@ class CollectionViewModel @Inject constructor(private val collectionRepository: 
         _selectedItem.value = Event(item)
     }
 
-    fun loadCollection(artistNationality: ArtistNationality, era: EuropeanCollectionEra) {
+    fun loadCollection(artistNationality: ArtistNationality, era: EuropeanCollectionEra, excludeMiniatures: Boolean) {
         viewModelScope.launch {
-            _items.value = collectionRepository.searchEuropeanPaintings(artistNationality, era)
+            _items.value = collectionRepository.searchEuropeanPaintings(artistNationality, era, excludeMiniatures)
         }
     }
 }

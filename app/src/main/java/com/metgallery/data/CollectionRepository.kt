@@ -8,6 +8,8 @@ import com.metgallery.data.model.MetObject
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
+//TODO support paging
+
 class CollectionRepository @Inject constructor(
     private val metMuseumApi: MetMuseumApi,
     private val metCollectionDao: MetCollectionDao
@@ -19,26 +21,41 @@ class CollectionRepository @Inject constructor(
         }
     }
 
-    //TODO support paging
     suspend fun searchEuropeanPaintings(
         artistNationality: ArtistNationality,
-        era: EuropeanCollectionEra
+        era: EuropeanCollectionEra,
+        excludeMiniatures: Boolean
     ): List<MetCollectionItem> {
 
         if (artistNationality != ArtistNationality.None && era != EuropeanCollectionEra.None) {
-            return metCollectionDao.findByArtistNationalityAndEra(
-                artistNationality.displayValue,
-                era.dateBegin,
-                era.dateEnd
-            )
+            return if (excludeMiniatures) {
+                metCollectionDao.findByArtistNationalityAndEraExcludeMiniatures(
+                    artistNationality.displayValue,
+                    era.dateBegin,
+                    era.dateEnd
+                )
+            } else {
+                metCollectionDao.findByArtistNationalityAndEra(
+                    artistNationality.displayValue,
+                    era.dateBegin,
+                    era.dateEnd
+                )
+            }
         }
         if (artistNationality != ArtistNationality.None) {
-            return metCollectionDao.findByArtistNationality(artistNationality.displayValue)
+            return if (excludeMiniatures) metCollectionDao.findByArtistNationalityExcludeMiniatures(
+                artistNationality.displayValue
+            ) else
+                metCollectionDao.findByArtistNationality(artistNationality.displayValue)
         }
+
         if (era != EuropeanCollectionEra.None) {
-            return metCollectionDao.findByEra(era.dateBegin, era.dateEnd)
+            return if (excludeMiniatures) metCollectionDao.findByEraExcludeMiniatures(
+                era.dateBegin,
+                era.dateEnd
+            ) else metCollectionDao.findByEra(era.dateBegin, era.dateEnd)
         }
-        return metCollectionDao.getAll()
+        return if (excludeMiniatures) metCollectionDao.getAllExcludeMiniatures() else metCollectionDao.getAll()
     }
 
     suspend fun getObjectDetailsById(objectId: Int): MetObject? {

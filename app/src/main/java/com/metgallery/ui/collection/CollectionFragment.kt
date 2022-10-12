@@ -40,6 +40,7 @@ class CollectionFragment : Fragment() {
         val era = arguments?.getSerializable("era") as EuropeanCollectionEra? ?: EuropeanCollectionEra.None
         val artistNationality =
             arguments?.getSerializable("nationality") as ArtistNationality? ?: ArtistNationality.None
+        val excludeMiniatures = arguments?.getBoolean("excludeMiniatures") ?: false
 
         viewDataBinding.toolbar.apply {
             setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material)
@@ -54,7 +55,7 @@ class CollectionFragment : Fragment() {
 
         viewDataBinding.rvCollection.adapter = CollectionAdapter(viewModel)
 
-        viewModel.loadCollection(artistNationality, era)
+        viewModel.loadCollection(artistNationality, era, excludeMiniatures)
 
         viewModel.selectedItem.observe(this.viewLifecycleOwner, EventObserver {
             val bundle = bundleOf(

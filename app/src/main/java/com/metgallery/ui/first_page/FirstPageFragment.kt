@@ -42,10 +42,11 @@ class FirstPageFragment : Fragment() {
         setupEraSpinner()
         setupArtistNationalitySpinner()
 
-        viewDataBinding.buttonShow.setOnClickListener {
+        viewDataBinding.buttonExplore.setOnClickListener {
             val bundle = bundleOf(
                 "era" to viewModel.selectedEra,
-                "nationality" to viewModel.selectedArtistNationality
+                "nationality" to viewModel.selectedArtistNationality,
+                "excludeMiniatures" to viewModel.excludeMiniatures
             )
             findNavController().navigate(R.id.action_FirstPageFragment_to_CollectionFragment, bundle)
         }
@@ -84,7 +85,6 @@ class FirstPageFragment : Fragment() {
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
                     viewModel.selectedEra = EuropeanCollectionEra.values()[position]
                 }
-
                 override fun onNothingSelected(p0: AdapterView<*>?) {
                 }
             }
@@ -99,7 +99,6 @@ class FirstPageFragment : Fragment() {
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
                     viewModel.selectedArtistNationality = ArtistNationality.values()[position]
                 }
-
                 override fun onNothingSelected(p0: AdapterView<*>?) {
                 }
             }
