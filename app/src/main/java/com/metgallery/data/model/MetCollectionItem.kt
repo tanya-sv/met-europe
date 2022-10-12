@@ -16,6 +16,7 @@ data class MetCollectionItem(
     @ColumnInfo(name = "object_begin_date") val objectBeginDate: Int,
     @ColumnInfo(name = "object_end_date") val objectEndDate: Int,
     @ColumnInfo(name = "medium") val medium: String,
+    @ColumnInfo(name = "classification") val classification: String,
     @ColumnInfo(name = "tags") val tags: List<String>,
     @ColumnInfo(name = "image_url") val imageUrl: String,
     @ColumnInfo(name = "height") val height: Float,

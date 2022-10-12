@@ -29,6 +29,10 @@ enum class ArtistNationality(val displayValue: String) {
     Swiss("Swiss"),
     Welsh("Welsh");
 
+    override fun toString(): String {
+        return displayValue
+    }
+
     fun displayNameOrEmpty() = if (this != None) {
         displayValue
     } else ""

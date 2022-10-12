@@ -14,7 +14,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/black">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
@@ -68,6 +69,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="6dp"
                         android:text="@{viewmodel.itemDetails.title + `, ` + viewmodel.itemDetails.objectDate}"
+                        android:textColor="@color/white"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         tools:text="Title" />
@@ -77,6 +79,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="6dp"
                         android:text="@{viewmodel.itemDetails.artistDisplayName + ` (` + viewmodel.itemDetails.artistDisplayBio + `)`}"
+                        android:textColor="@color/white"
                         android:textSize="16sp"
                         android:visibility="@{viewmodel.itemDetails.artistDisplayName.empty ? View.GONE : View.VISIBLE}"
                         tools:text="Artist Name (Artist Bio)" />
@@ -86,6 +89,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="6dp"
                         android:text="@{viewmodel.itemDetails.medium}"
+                        android:textColor="@color/white"
                         android:textSize="16sp"
                         tools:text="Oil on canvas" />
 
@@ -94,6 +98,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="6dp"
                         android:text="@{viewmodel.itemDetails.dimensions}"
+                        android:textColor="@color/white"
                         android:textSize="16sp"
                         tools:text="25 3/4 x 32 1/4 in. (65.4 x 81.9 cm)" />
 
@@ -102,6 +107,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="6dp"
                         android:text="@{viewmodel.itemDetails.classification}"
+                        android:textColor="@color/white"
                         android:textSize="16sp"
                         tools:text="Paintings" />
 
@@ -110,6 +116,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="6dp"
                         android:text="@{viewmodel.itemDetails.creditLine}"
+                        android:textColor="@color/white"
                         android:textSize="16sp"
                         tools:text="Bequest of Stephen C. Clark, 1960" />
 

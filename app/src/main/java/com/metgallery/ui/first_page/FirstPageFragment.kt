@@ -51,16 +51,16 @@ class FirstPageFragment : Fragment() {
         }
     }
 
-    private fun setupEraSpinner() {
-        val adapter = object : ArrayAdapter<EuropeanCollectionEra>(
+    private fun <T> createSpinnerAdapter(values: Array<T>): ArrayAdapter<T> {
+        val adapter = object : ArrayAdapter<T>(
             requireContext(),
             android.R.layout.simple_spinner_item,
-            EuropeanCollectionEra.values()
+            values
         ) {
 
             override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val textView = super.getDropDownView(position, convertView, parent) as TextView
-                textView.text = EuropeanCollectionEra.values()[position].displayValue
+                textView.text = values[position].toString()
                 textView.gravity = Gravity.CENTER_VERTICAL
                 textView.minHeight = resources.getDimensionPixelSize(R.dimen.default_input_height)
                 return textView
@@ -68,16 +68,19 @@ class FirstPageFragment : Fragment() {
 
             override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
                 val textView = super.getView(position, convertView, parent) as TextView
-                textView.text = EuropeanCollectionEra.values()[position].displayValue
+                textView.text = values[position].toString()
                 return textView
             }
         }
 
+        return adapter
+    }
+
+    private fun setupEraSpinner() {
         viewDataBinding.spinnerEra.apply {
-            this.adapter = adapter
+            this.adapter = createSpinnerAdapter(EuropeanCollectionEra.values())
 
             onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
                     viewModel.selectedEra = EuropeanCollectionEra.values()[position]
                 }
@@ -89,31 +92,10 @@ class FirstPageFragment : Fragment() {
     }
 
     private fun setupArtistNationalitySpinner() {
-        val adapter = object : ArrayAdapter<ArtistNationality>(
-            requireContext(),
-            android.R.layout.simple_spinner_item,
-            ArtistNationality.values()
-        ) {
-            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
-                val textView = super.getDropDownView(position, convertView, parent) as TextView
-                textView.text = ArtistNationality.values()[position].displayValue
-                textView.gravity = Gravity.CENTER_VERTICAL
-                textView.minHeight = resources.getDimensionPixelSize(R.dimen.default_input_height)
-                return textView
-            }
-
-            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-                val textView = super.getView(position, convertView, parent) as TextView
-                textView.text = ArtistNationality.values()[position].displayValue
-                return textView
-            }
-        }
-
         viewDataBinding.spinnerArtisNationality.apply {
-            this.adapter = adapter
+            this.adapter = createSpinnerAdapter(ArtistNationality.values())
 
             onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-
                 override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
                     viewModel.selectedArtistNationality = ArtistNationality.values()[position]
                 }

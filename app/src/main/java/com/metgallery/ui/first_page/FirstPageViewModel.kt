@@ -14,7 +14,7 @@ class FirstPageViewModel @Inject constructor(private val collectionRepository: C
     ViewModel() {
 
     //TODO retrieve random image from the db
-    private val _randomUrl = MutableLiveData<String>().apply { value = "https://collectionapi.metmuseum.org/api/collection/v1/iiif/436214/1653614/main-image" }
+    private val _randomUrl = MutableLiveData<String>().apply { value = "https://images.metmuseum.org/CRDImages/ep/web-large/DP-416-001.jpg" }
     val randomUrl: LiveData<String> = _randomUrl
 
     var selectedEra = EuropeanCollectionEra.None

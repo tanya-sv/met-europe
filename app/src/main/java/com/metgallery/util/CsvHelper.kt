@@ -32,6 +32,7 @@ fun getCollectionItemsFromCsvFile(context: Context): List<MetCollectionItem> {
                         objectBeginDate = elements[6].toInt(),
                         objectEndDate = elements[7].toInt(),
                         medium = elements[8],
+                        classification = elements[9],
                         tags = elements[10].split("|"),
                         imageUrl = elements[11],
                         height = elements[12].toFloat(),

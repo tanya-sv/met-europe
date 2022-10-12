@@ -8,6 +8,10 @@ enum class EuropeanCollectionEra(val displayValue: String, val dateBegin: Int, v
     AD1800_1900("A.D.+1800-1900", 1800, 1900),
     AD1900_2000("A.D.+1900-2000", 1900, 2000);
 
+    override fun toString(): String {
+        return displayValue
+    }
+
     fun displayNameOrEmpty() = if (this != None) {
         displayValue
     } else ""
