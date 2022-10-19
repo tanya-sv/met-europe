@@ -24,6 +24,7 @@ class ItemDetailsFragment : Fragment() {
     ): View {
         viewDataBinding = FragmentItemDetailsBinding.inflate(inflater, container, false).apply {
             viewmodel = viewModel
+            progressBar = this.indeterminateBar
         }
         return viewDataBinding.root
     }

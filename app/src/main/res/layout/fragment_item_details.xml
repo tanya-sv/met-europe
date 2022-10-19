@@ -8,6 +8,10 @@
         <import type="android.view.View" />
 
         <variable
+            name="progressBar"
+            type="android.widget.ProgressBar" />
+
+        <variable
             name="viewmodel"
             type="com.metgallery.ui.item_details.ItemDetailsViewModel" />
     </data>
@@ -54,14 +58,14 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <ImageView
+                    <com.github.chrisbanes.photoview.PhotoView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="6dp"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/title"
-                        android:scaleType="fitCenter"
-                        app:imageUrl="@{viewmodel.itemDetails.primaryImageSmall ?? ``}"
+                        app:largeImageUrl="@{viewmodel.itemDetails.primaryImage ?? ``}"
+                        app:progressBar="@{progressBar}"
                         tools:src="@drawable/ic_launcher_background" />
 
                     <TextView
@@ -126,7 +130,6 @@
                     android:id="@+id/indeterminateBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{viewmodel.dataLoading ? View.VISIBLE : View.GONE}"
                     app:layout_constraintBottom_toBottomOf="@id/itemDetails"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
