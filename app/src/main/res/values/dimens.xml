@@ -1,4 +1,6 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="default_input_height">48dp</dimen>
+    <dimen name="spinner_dropdown_height">48dp</dimen>
+    <dimen name="item_details_padding">12dp</dimen>
+    <dimen name="item_details_image_margin">6dp</dimen>
 </resources>

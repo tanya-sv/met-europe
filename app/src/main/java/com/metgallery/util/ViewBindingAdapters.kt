@@ -20,7 +20,7 @@ fun setImageUrl(imageView: ImageView, imageUrl: String) {
 @BindingAdapter(value = ["app:largeImageUrl", "app:progressBar"], requireAll = false)
 fun setLargeImageUrl(photoView: PhotoView, imageUrl: String, progressBar: ProgressBar) {
     Glide.with(photoView).load(imageUrl)
-
+        //TODO use placeholder?
         .addListener(object : RequestListener<Drawable> {
             override fun onLoadFailed(
                 e: GlideException?,

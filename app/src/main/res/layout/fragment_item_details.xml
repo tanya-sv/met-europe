@@ -46,7 +46,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="12dp">
+                android:padding="@dimen/item_details_padding">
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:id="@+id/itemDetails"
@@ -59,9 +59,10 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <com.github.chrisbanes.photoview.PhotoView
+                        android:id="@+id/ivPrimaryImage"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="6dp"
+                        android:layout_margin="@dimen/item_details_image_margin"
                         android:adjustViewBounds="true"
                         android:contentDescription="@string/title"
                         app:largeImageUrl="@{viewmodel.itemDetails.primaryImage ?? ``}"

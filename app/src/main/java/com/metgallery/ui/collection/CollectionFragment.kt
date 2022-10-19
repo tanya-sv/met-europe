@@ -59,7 +59,9 @@ class CollectionFragment : Fragment() {
 
         viewModel.selectedItem.observe(this.viewLifecycleOwner, EventObserver {
             val bundle = bundleOf(
-                "objectId" to it.objectId
+                "objectId" to it.objectId,
+                "width" to it.width,
+                "height" to it.height
             )
             findNavController().navigate(R.id.action_CollectionFragment_to_ItemDetailsFragment, bundle)
         })

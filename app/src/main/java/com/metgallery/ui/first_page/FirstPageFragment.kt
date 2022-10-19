@@ -63,7 +63,7 @@ class FirstPageFragment : Fragment() {
                 val textView = super.getDropDownView(position, convertView, parent) as TextView
                 textView.text = values[position].toString()
                 textView.gravity = Gravity.CENTER_VERTICAL
-                textView.minHeight = resources.getDimensionPixelSize(R.dimen.default_input_height)
+                textView.minHeight = resources.getDimensionPixelSize(R.dimen.spinner_dropdown_height)
                 return textView
             }
 
