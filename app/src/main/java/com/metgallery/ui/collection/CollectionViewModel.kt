@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.metgallery.data.CollectionRepository
 import com.metgallery.data.model.ArtistNationality
 import com.metgallery.data.model.EuropeanCollectionEra
+import com.metgallery.data.model.MetCollectionFavourite
 import com.metgallery.data.model.MetCollectionItem
 import com.metgallery.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,7 +15,8 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class CollectionViewModel @Inject constructor(private val collectionRepository: CollectionRepository) : ViewModel() {
+class CollectionViewModel @Inject constructor(private val collectionRepository: CollectionRepository) :
+    ViewModel() {
 
     private val _items = MutableLiveData<List<MetCollectionItem>>().apply { value = emptyList() }
     val items: LiveData<List<MetCollectionItem>> = _items
@@ -26,9 +28,25 @@ class CollectionViewModel @Inject constructor(private val collectionRepository: 
         _selectedItem.value = Event(item)
     }
 
-    fun loadCollection(artistNationality: ArtistNationality, era: EuropeanCollectionEra, excludeMiniatures: Boolean) {
+    fun loadCollection(
+        artistNationality: ArtistNationality,
+        era: EuropeanCollectionEra,
+        excludeMiniatures: Boolean
+    ) {
         viewModelScope.launch {
-            _items.value = collectionRepository.searchEuropeanPaintings(artistNationality, era, excludeMiniatures)
+            _items.value =
+                collectionRepository.searchEuropeanPaintings(artistNationality, era, excludeMiniatures)
         }
     }
+
+    fun favouriteChanged(item: MetCollectionItem, checked: Boolean) {
+        if (item.favourite != checked) {
+            item.favourite = checked
+
+            viewModelScope.launch {
+                collectionRepository.updateFavourite(MetCollectionFavourite(item.objectId, checked))
+            }
+        }
+    }
+
 }

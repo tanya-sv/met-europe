@@ -69,6 +69,16 @@
                         app:progressBar="@{progressBar}"
                         tools:src="@drawable/ic_launcher_background" />
 
+                    <CheckBox
+                        android:id="@+id/checkBoxFavourite"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="12dp"
+                        android:button="@drawable/ic_favourite"
+                        android:buttonTint="@color/white"
+                        android:checked="@={viewmodel.isFavourite}"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

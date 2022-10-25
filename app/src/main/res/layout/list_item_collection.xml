@@ -33,5 +33,16 @@
             app:imageUrl="@{item.imageUrl}"
             tools:src="@drawable/ic_launcher_background" />
 
+        <CheckBox
+            android:id="@+id/checkBoxFavourite"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="end"
+            android:layout_margin="6dp"
+            android:button="@drawable/ic_favourite_small"
+            android:buttonTint="@color/white"
+            android:checked="@{item.favourite}"
+            android:onCheckedChanged="@{(view, checked) -> viewmodel.favouriteChanged(item, checked )}"/>
+
     </androidx.cardview.widget.CardView>
 </layout>

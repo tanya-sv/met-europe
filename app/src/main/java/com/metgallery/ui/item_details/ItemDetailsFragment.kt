@@ -47,8 +47,9 @@ class ItemDetailsFragment : Fragment() {
         presetImageSize(viewDataBinding.ivPrimaryImage)
 
         val objectId = arguments?.getInt("objectId")
+        val favourite = arguments?.getBoolean("favourite") ?: false
         objectId?.let {
-            viewModel.start(objectId)
+            viewModel.start(objectId, favourite)
         }
     }
 

@@ -61,7 +61,8 @@ class CollectionFragment : Fragment() {
             val bundle = bundleOf(
                 "objectId" to it.objectId,
                 "width" to it.width,
-                "height" to it.height
+                "height" to it.height,
+                "favourite" to it.favourite
             )
             findNavController().navigate(R.id.action_CollectionFragment_to_ItemDetailsFragment, bundle)
         })

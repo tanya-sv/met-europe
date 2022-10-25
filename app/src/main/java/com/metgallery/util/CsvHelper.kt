@@ -36,7 +36,8 @@ fun getCollectionItemsFromCsvFile(context: Context): List<MetCollectionItem> {
                         tags = elements[10].split("|"),
                         imageUrl = elements[11],
                         height = elements[12].toFloat(),
-                        width = elements[13].toFloat()
+                        width = elements[13].toFloat(),
+                        false
                     )
                 )
             }

@@ -1,10 +1,7 @@
 package com.metgallery.data
 
 import com.metgallery.data.api.MetMuseumApi
-import com.metgallery.data.model.ArtistNationality
-import com.metgallery.data.model.EuropeanCollectionEra
-import com.metgallery.data.model.MetCollectionItem
-import com.metgallery.data.model.MetObject
+import com.metgallery.data.model.*
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
@@ -62,5 +59,9 @@ class CollectionRepository @Inject constructor(
         return withContext(Dispatchers.IO) {
             metMuseumApi.getObjectById(objectId).body()
         }
+    }
+
+    suspend fun updateFavourite(favourite: MetCollectionFavourite) {
+        metCollectionDao.update(favourite)
     }
 }

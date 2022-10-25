@@ -20,5 +20,6 @@ data class MetCollectionItem(
     @ColumnInfo(name = "tags") val tags: List<String>,
     @ColumnInfo(name = "image_url") val imageUrl: String,
     @ColumnInfo(name = "height") val height: Float,
-    @ColumnInfo(name = "width") val width: Float
+    @ColumnInfo(name = "width") val width: Float,
+    @ColumnInfo(name = "favourite") var favourite: Boolean
 ) : Parcelable

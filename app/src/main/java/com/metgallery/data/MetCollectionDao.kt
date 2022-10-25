@@ -1,6 +1,7 @@
 package com.metgallery.data
 
 import androidx.room.*
+import com.metgallery.data.model.MetCollectionFavourite
 import com.metgallery.data.model.MetCollectionItem
 
 @Dao
@@ -11,6 +12,9 @@ interface MetCollectionDao {
 
     @Query("SELECT * FROM met_collection_item")
     suspend fun getAll(): List<MetCollectionItem>
+
+    @Query("SELECT * FROM met_collection_item WHERE favourite = 1")
+    suspend fun getAllFavourites(): List<MetCollectionItem>
 
     @Query("SELECT * FROM met_collection_item WHERE classification LIKE 'Paintings'")
     suspend fun getAllExcludeMiniatures(): List<MetCollectionItem>
@@ -41,11 +45,13 @@ interface MetCollectionDao {
         endDate: Int
     ): List<MetCollectionItem>
 
-
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(items: List<MetCollectionItem>)
 
     @Update
     suspend fun update(item: MetCollectionItem)
+
+    @Update (entity = MetCollectionItem::class)
+    suspend fun update(item: MetCollectionFavourite)
 
 }
