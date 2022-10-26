@@ -9,8 +9,9 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
-import com.github.chrisbanes.photoview.PhotoView
+import com.jsibbold.zoomage.ZoomageView
 
 @BindingAdapter("app:imageUrl")
 fun setImageUrl(imageView: ImageView, imageUrl: String) {
@@ -18,8 +19,10 @@ fun setImageUrl(imageView: ImageView, imageUrl: String) {
 }
 
 @BindingAdapter(value = ["app:largeImageUrl", "app:progressBar"], requireAll = false)
-fun setLargeImageUrl(photoView: PhotoView, imageUrl: String, progressBar: ProgressBar) {
-    Glide.with(photoView).load(imageUrl)
+fun setLargeImageUrl(photoView: ZoomageView, imageUrl: String, progressBar: ProgressBar) {
+    Glide.with(photoView)
+        .load(imageUrl)
+        .apply(RequestOptions.overrideOf(Target.SIZE_ORIGINAL))
         //TODO use placeholder?
         .addListener(object : RequestListener<Drawable> {
             override fun onLoadFailed(
