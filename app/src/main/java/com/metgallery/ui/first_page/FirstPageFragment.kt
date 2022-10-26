@@ -1,10 +1,8 @@
 package com.metgallery.ui.first_page
 
 import android.os.Bundle
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+
+import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
@@ -41,6 +39,19 @@ class FirstPageFragment : Fragment() {
 
         setupEraSpinner()
         setupArtistNationalitySpinner()
+
+        viewDataBinding.toolbar.apply {
+            inflateMenu(R.menu.menu_first_page)
+            setOnMenuItemClickListener { menuItem ->
+                if (menuItem.itemId == R.id.action_favourites) {
+                    val bundle = bundleOf(
+                        "favourites" to true
+                    )
+                    findNavController().navigate(R.id.action_FirstPageFragment_to_CollectionFragment, bundle)
+                }
+                true
+            }
+        }
 
         viewDataBinding.buttonExplore.setOnClickListener {
             val bundle = bundleOf(

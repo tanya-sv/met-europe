@@ -42,6 +42,7 @@ class ItemDetailsFragment : Fragment() {
             setNavigationOnClickListener {
                 findNavController().popBackStack()
             }
+            inflateMenu(R.menu.menu_item_details)
         }
 
         presetImageSize(viewDataBinding.ivPrimaryImage)

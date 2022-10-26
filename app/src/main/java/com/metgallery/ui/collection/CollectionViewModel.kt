@@ -24,18 +24,25 @@ class CollectionViewModel @Inject constructor(private val collectionRepository: 
     private val _selectedItem = MutableLiveData<Event<MetCollectionItem>>()
     val selectedItem: LiveData<Event<MetCollectionItem>> = _selectedItem
 
+    private var favouritesOnly = false
+
     fun selectItem(item: MetCollectionItem) {
         _selectedItem.value = Event(item)
     }
 
     fun loadCollection(
+        favourites: Boolean,
         artistNationality: ArtistNationality,
         era: EuropeanCollectionEra,
         excludeMiniatures: Boolean
     ) {
         viewModelScope.launch {
+            favouritesOnly = favourites
+
             _items.value =
-                collectionRepository.searchEuropeanPaintings(artistNationality, era, excludeMiniatures)
+                if (favourites) collectionRepository.getFavourites()
+                else
+                    collectionRepository.searchEuropeanPaintings(artistNationality, era, excludeMiniatures)
         }
     }
 
@@ -45,6 +52,12 @@ class CollectionViewModel @Inject constructor(private val collectionRepository: 
 
             viewModelScope.launch {
                 collectionRepository.updateFavourite(MetCollectionFavourite(item.objectId, checked))
+            }
+
+            if (favouritesOnly && !item.favourite) {
+                viewModelScope.launch {
+                    _items.value = collectionRepository.getFavourites()
+                }
             }
         }
     }

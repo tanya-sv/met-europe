@@ -37,11 +37,6 @@ class CollectionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
 
-        val era = arguments?.getSerializable("era") as EuropeanCollectionEra? ?: EuropeanCollectionEra.None
-        val artistNationality =
-            arguments?.getSerializable("nationality") as ArtistNationality? ?: ArtistNationality.None
-        val excludeMiniatures = arguments?.getBoolean("excludeMiniatures") ?: false
-
         viewDataBinding.toolbar.apply {
             setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material)
             setNavigationOnClickListener {
@@ -49,13 +44,24 @@ class CollectionFragment : Fragment() {
             }
         }
 
-        viewModel.items.observe(this.viewLifecycleOwner) {
-            viewDataBinding.toolbar.title = "${era.displayNameOrEmpty()}  ${artistNationality.displayNameOrEmpty()} (${it.size})"
-        }
-
         viewDataBinding.rvCollection.adapter = CollectionAdapter(viewModel)
 
-        viewModel.loadCollection(artistNationality, era, excludeMiniatures)
+        val favourites = arguments?.getBoolean("favourites") ?: false
+        val era = arguments?.getSerializable("era") as EuropeanCollectionEra? ?: EuropeanCollectionEra.None
+        val artistNationality =
+            arguments?.getSerializable("nationality") as ArtistNationality? ?: ArtistNationality.None
+        val excludeMiniatures = arguments?.getBoolean("excludeMiniatures") ?: false
+
+        viewModel.items.observe(this.viewLifecycleOwner) {
+
+            val title =
+                if (favourites) resources.getString(R.string.favourites)
+                else "${era.displayNameOrEmpty()}  ${artistNationality.displayNameOrEmpty()}"
+
+            viewDataBinding.toolbar.title = "$title (${it.size})"
+        }
+
+        viewModel.loadCollection(favourites, artistNationality, era, excludeMiniatures)
 
         viewModel.selectedItem.observe(this.viewLifecycleOwner, EventObserver {
             val bundle = bundleOf(

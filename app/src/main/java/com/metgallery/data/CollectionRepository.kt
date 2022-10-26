@@ -5,8 +5,6 @@ import com.metgallery.data.model.*
 import kotlinx.coroutines.*
 import javax.inject.Inject
 
-//TODO support paging
-
 class CollectionRepository @Inject constructor(
     private val metMuseumApi: MetMuseumApi,
     private val metCollectionDao: MetCollectionDao
@@ -59,6 +57,10 @@ class CollectionRepository @Inject constructor(
         return withContext(Dispatchers.IO) {
             metMuseumApi.getObjectById(objectId).body()
         }
+    }
+
+    suspend fun getFavourites() : List<MetCollectionItem>  {
+        return metCollectionDao.getAllFavourites()
     }
 
     suspend fun updateFavourite(favourite: MetCollectionFavourite) {
