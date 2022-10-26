@@ -33,7 +33,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
-                app:popupTheme="@style/Theme.Launcher.PopupOverlay" />
+                app:popupTheme="@style/Theme.Launcher.PopupOverlay">
+
+                <CheckBox
+                    android:id="@+id/checkBoxFavourite"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="end"
+                    android:button="@drawable/ic_favourite_small"
+                    android:buttonTint="@color/white"
+                    android:checked="@={viewmodel.isFavourite}"/>
+
+            </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -76,16 +87,6 @@
                         app:largeImageUrl="@{viewmodel.itemDetails.primaryImage ?? ``}"
                         app:progressBar="@{progressBar}"
                         tools:src="@drawable/ic_launcher_background" />
-
-                    <CheckBox
-                        android:id="@+id/checkBoxFavourite"
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:layout_gravity="end"
-                        android:layout_marginEnd="12dp"
-                        android:button="@drawable/ic_favourite"
-                        android:buttonTint="@color/white"
-                        android:checked="@={viewmodel.isFavourite}"/>
 
                     <TextView
                         android:layout_width="wrap_content"
