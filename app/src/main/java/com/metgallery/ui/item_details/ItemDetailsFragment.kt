@@ -1,6 +1,7 @@
 package com.metgallery.ui.item_details
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -10,10 +11,9 @@ import android.media.MediaScannerConnection
 import android.os.Bundle
 import android.os.Environment
 import android.util.DisplayMetrics
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
+import android.view.GestureDetector.SimpleOnGestureListener
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
@@ -68,17 +68,13 @@ class ItemDetailsFragment : Fragment() {
                 findNavController().popBackStack()
             }
             inflateMenu(R.menu.menu_item_details)
-            setOnMenuItemClickListener { menuItem ->
-
-                if (menuItem.itemId == R.id.action_download) {
-                    downloadOriginalImage()
-                    true
-                } else
-                    false
+            setOnMenuItemClickListener {
+                onMenuItemClicked(it)
             }
         }
 
-        presetImageSize(viewDataBinding.ivPrimaryImage)
+        presetImageSize()
+        setupImagePopupMenu()
 
         val objectId = arguments?.getInt("objectId")
         val favourite = arguments?.getBoolean("favourite") ?: false
@@ -87,9 +83,8 @@ class ItemDetailsFragment : Fragment() {
         }
     }
 
-
     //presetting image size to avoid UI jumping up and down
-    private fun presetImageSize(imageView: View) {
+    private fun presetImageSize() {
         arguments?.let {
             val width = it.getFloat("width")
             val height = it.getFloat("height")
@@ -108,6 +103,39 @@ class ItemDetailsFragment : Fragment() {
             viewDataBinding.ivPrimaryImage.layoutParams.height = newHeight.toInt()
         }
     }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun setupImagePopupMenu() {
+
+        val gestureDetector = GestureDetector(object : SimpleOnGestureListener() {
+            override fun onLongPress(e: MotionEvent) {
+
+                //showing popup menu near touch place
+                viewDataBinding.vPopupMenuAnchor.x = e.x
+                viewDataBinding.vPopupMenuAnchor.y = e.y
+
+                val popup = PopupMenu(requireContext(), viewDataBinding.vPopupMenuAnchor)
+                popup.menuInflater.inflate(R.menu.menu_item_details, popup.menu)
+                popup.setOnMenuItemClickListener {
+                    onMenuItemClicked(it)
+                }
+                popup.show()
+            }
+        })
+
+        //ZoomageView doesn't work with default context menu functionality easily
+        viewDataBinding.ivPrimaryImage.setOnTouchListener { _, motionEvent ->
+            gestureDetector.onTouchEvent(motionEvent)
+            false
+        }
+    }
+
+    private fun onMenuItemClicked(menuItem: MenuItem): Boolean =
+        if (menuItem.itemId == R.id.action_download) {
+            downloadOriginalImage()
+            true
+        } else
+            false
 
     private fun downloadOriginalImage() {
         viewModel.itemDetails.value?.let {

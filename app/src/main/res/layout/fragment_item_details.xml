@@ -42,7 +42,7 @@
                     android:layout_gravity="end"
                     android:button="@drawable/ic_favourite"
                     android:buttonTint="@color/white"
-                    android:checked="@={viewmodel.isFavourite}"/>
+                    android:checked="@={viewmodel.isFavourite}" />
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -69,24 +69,35 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <com.jsibbold.zoomage.ZoomageView
-                        android:id="@+id/ivPrimaryImage"
+                    <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/item_details_image_margin"
-                        android:adjustViewBounds="true"
-                        android:contentDescription="@string/title"
-                        app:zoomage_restrictBounds="true"
-                        app:zoomage_animateOnReset="true"
-                        app:zoomage_autoResetMode="UNDER"
-                        app:zoomage_autoCenter="true"
-                        app:zoomage_zoomable="true"
-                        app:zoomage_translatable="true"
-                        app:zoomage_minScale="0.6"
-                        app:zoomage_maxScale="8"
-                        app:largeImageUrl="@{viewmodel.itemDetails.primaryImage ?? ``}"
-                        app:progressBar="@{progressBar}"
-                        tools:src="@drawable/ic_launcher_background" />
+                        android:layout_height="wrap_content">
+
+                        <com.jsibbold.zoomage.ZoomageView
+                            android:id="@+id/ivPrimaryImage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/item_details_image_margin"
+                            android:adjustViewBounds="true"
+                            android:contentDescription="@string/title"
+                            app:largeImageUrl="@{viewmodel.itemDetails.primaryImage ?? ``}"
+                            app:progressBar="@{progressBar}"
+                            app:zoomage_animateOnReset="true"
+                            app:zoomage_autoCenter="true"
+                            app:zoomage_autoResetMode="UNDER"
+                            app:zoomage_maxScale="8"
+                            app:zoomage_minScale="0.6"
+                            app:zoomage_restrictBounds="true"
+                            app:zoomage_translatable="true"
+                            app:zoomage_zoomable="true"
+                            tools:src="@drawable/ic_launcher_background" />
+
+                        <View
+                            android:id="@+id/vPopupMenuAnchor"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp" />
+
+                    </RelativeLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -148,10 +159,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="6dp"
+                        android:autoLink="web"
                         android:text="@{viewmodel.itemDetails.objectURL}"
                         android:textColor="@color/white"
                         android:textSize="16sp"
-                        android:autoLink="web"
                         tools:text="https://www.metmuseum.org/art/collection/search/436851" />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
