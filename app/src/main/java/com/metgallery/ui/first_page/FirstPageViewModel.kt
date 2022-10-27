@@ -13,8 +13,20 @@ import javax.inject.Inject
 class FirstPageViewModel @Inject constructor(private val collectionRepository: CollectionRepository) :
     ViewModel() {
 
-    //TODO retrieve random image from the db
-    private val _randomUrl = MutableLiveData<String>().apply { value = "https://images.metmuseum.org/CRDImages/ep/web-large/DP-416-001.jpg" }
+    private val randomImages = listOf(
+        "https://images.metmuseum.org/CRDImages/ep/web-large/DP-416-001.jpg",
+        "https://images.metmuseum.org/CRDImages/ep/web-large/DP243354.jpg",
+        "https://images.metmuseum.org/CRDImages/ep/web-large/DT2818.jpg",
+        "https://images.metmuseum.org/CRDImages/ep/web-large/DT2566.jpg",
+        "https://images.metmuseum.org/CRDImages/ep/web-large/DP169402.jpg",
+        "https://images.metmuseum.org/CRDImages/ep/web-large/DP-406-01.jpg",
+        "https://images.metmuseum.org/CRDImages/ep/web-large/DP167132.jpg",
+        "https://images.metmuseum.org/CRDImages/ep/web-large/DP353257.jpg",
+        "https://images.metmuseum.org/CRDImages/ep/web-large/Wrightsman93.jpg",
+        "https://images.metmuseum.org/CRDImages/ep/web-large/DP169564.jpg",
+        "https://images.metmuseum.org/CRDImages/ep/web-large/DP320086.jpg")
+
+    private val _randomUrl = MutableLiveData<String>().apply { value = randomImages.random() }
     val randomUrl: LiveData<String> = _randomUrl
 
     var selectedEra = EuropeanCollectionEra.None
