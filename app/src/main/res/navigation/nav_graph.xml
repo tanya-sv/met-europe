@@ -29,6 +29,10 @@
             android:id="@+id/action_CollectionFragment_to_ItemDetailsFragment"
             app:destination="@id/ItemDetailsFragment" />
 
+        <action
+            android:id="@+id/action_CollectionFragment_to_CollectionFragment"
+            app:destination="@id/CollectionFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/ItemDetailsFragment"

@@ -40,7 +40,7 @@
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:layout_gravity="end"
-                    android:button="@drawable/ic_favourite_small"
+                    android:button="@drawable/ic_favourite"
                     android:buttonTint="@color/white"
                     android:checked="@={viewmodel.isFavourite}"/>
 

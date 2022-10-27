@@ -47,13 +47,30 @@ class CollectionFragment : Fragment() {
         viewDataBinding.rvCollection.adapter = CollectionAdapter(viewModel)
 
         val favourites = arguments?.getBoolean("favourites") ?: false
+        if (!favourites) {
+            viewDataBinding.toolbar.apply {
+                inflateMenu(R.menu.menu_collection_page)
+                setOnMenuItemClickListener { menuItem ->
+                    if (menuItem.itemId == R.id.action_favourites) {
+                        val bundle = bundleOf(
+                            "favourites" to true
+                        )
+                        findNavController().navigate(
+                            R.id.action_CollectionFragment_to_CollectionFragment,
+                            bundle
+                        )
+                    }
+                    true
+                }
+            }
+        }
+
         val era = arguments?.getSerializable("era") as EuropeanCollectionEra? ?: EuropeanCollectionEra.None
         val artistNationality =
             arguments?.getSerializable("nationality") as ArtistNationality? ?: ArtistNationality.None
         val excludeMiniatures = arguments?.getBoolean("excludeMiniatures") ?: false
 
         viewModel.items.observe(this.viewLifecycleOwner) {
-
             val title =
                 if (favourites) resources.getString(R.string.favourites)
                 else "${era.displayNameOrEmpty()}  ${artistNationality.displayNameOrEmpty()}"

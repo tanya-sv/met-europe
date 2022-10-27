@@ -33,7 +33,16 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@null"
             android:theme="@style/Theme.Launcher.AppBarOverlay"
-            app:popupTheme="@style/Theme.Launcher.PopupOverlay" />
+            app:popupTheme="@style/Theme.Launcher.PopupOverlay">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_search" />
+
+
+        </androidx.appcompat.widget.Toolbar>
 
         <TextView
             android:id="@+id/tvMetTitle"
@@ -82,9 +91,9 @@
             android:layout_alignParentEnd="true"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="4dp"
+            android:checked="@={viewmodel.excludeMiniatures}"
             android:layoutDirection="rtl"
             android:text="@string/exclude_miniatures"
-            android:checked="@={viewmodel.excludeMiniatures}"
             android:textColor="@color/white" />
 
         <com.google.android.material.button.MaterialButton
