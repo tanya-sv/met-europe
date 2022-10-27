@@ -17,6 +17,7 @@ import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -131,11 +132,18 @@ class ItemDetailsFragment : Fragment() {
     }
 
     private fun onMenuItemClicked(menuItem: MenuItem): Boolean =
-        if (menuItem.itemId == R.id.action_download) {
-            downloadOriginalImage()
-            true
-        } else
-            false
+        when (menuItem.itemId) {
+            R.id.action_download -> {
+                downloadOriginalImage()
+                true
+            }
+            R.id.action_favourites -> {
+                val bundle = bundleOf("favourites" to true)
+                findNavController().navigate(R.id.action_ItemDetailsFragment_to_CollectionFragment, bundle)
+                true
+            }
+            else -> false
+        }
 
     private fun downloadOriginalImage() {
         viewModel.itemDetails.value?.let {
