@@ -26,6 +26,7 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.metgallery.ui.R
 import com.metgallery.ui.databinding.FragmentItemDetailsBinding
+import com.metgallery.util.EventObserver
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
@@ -74,6 +75,8 @@ class ItemDetailsFragment : Fragment() {
             }
         }
 
+        viewDataBinding.rvTags.adapter = TagsAdapter(viewModel)
+
         presetImageSize()
         setupImagePopupMenu()
 
@@ -82,6 +85,13 @@ class ItemDetailsFragment : Fragment() {
         objectId?.let {
             viewModel.start(objectId, favourite)
         }
+
+        viewModel.selectedTag.observe(this.viewLifecycleOwner, EventObserver {
+            val bundle = bundleOf(
+                "tag" to it.term
+            )
+            findNavController().navigate(R.id.action_ItemDetailsFragment_to_CollectionFragment, bundle)
+        })
     }
 
     //presetting image size to avoid UI jumping up and down

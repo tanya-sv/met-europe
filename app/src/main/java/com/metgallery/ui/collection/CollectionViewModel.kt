@@ -1,5 +1,7 @@
 package com.metgallery.ui.collection
 
+import android.os.Bundle
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -24,25 +26,44 @@ class CollectionViewModel @Inject constructor(private val collectionRepository: 
     private val _selectedItem = MutableLiveData<Event<MetCollectionItem>>()
     val selectedItem: LiveData<Event<MetCollectionItem>> = _selectedItem
 
-    private var favouritesOnly = false
+    private var _era: EuropeanCollectionEra = EuropeanCollectionEra.None
+    fun getEra(): EuropeanCollectionEra = _era
+
+    private var _artistNationality: ArtistNationality = ArtistNationality.None
+    fun getArtistNationality(): ArtistNationality = _artistNationality
+
+    private var _excludeMiniatures = false
+
+    private var _favouritesOnly: Boolean = false
+    fun isFavouritesOnly(): Boolean = _favouritesOnly
+
+    private var _tag: String? = null
+    fun getTag(): String? = _tag
+
+    fun readFromBundle(bundle: Bundle) {
+        bundle.getSerializable("era")?.let {
+            _era = it as EuropeanCollectionEra
+        }
+        bundle.getSerializable("nationality")?.let {
+            _artistNationality = it as ArtistNationality
+        }
+        _excludeMiniatures = bundle.getBoolean("excludeMiniatures")
+        _favouritesOnly = bundle.getBoolean("favourites")
+        _tag = bundle.getString("tag")
+    }
 
     fun selectItem(item: MetCollectionItem) {
         _selectedItem.value = Event(item)
     }
 
-    fun loadCollection(
-        favourites: Boolean,
-        artistNationality: ArtistNationality,
-        era: EuropeanCollectionEra,
-        excludeMiniatures: Boolean
-    ) {
+    fun loadCollection() {
         viewModelScope.launch {
-            favouritesOnly = favourites
-
             _items.value =
-                if (favourites) collectionRepository.getFavourites()
-                else
-                    collectionRepository.searchEuropeanPaintings(artistNationality, era, excludeMiniatures)
+                if (_favouritesOnly) collectionRepository.getFavourites()
+                else if (!_tag.isNullOrBlank()) {
+                    collectionRepository.searchByTag(_tag!!)
+                } else
+                    collectionRepository.searchEuropeanPaintings(_artistNationality, _era, _excludeMiniatures)
         }
     }
 
@@ -54,7 +75,7 @@ class CollectionViewModel @Inject constructor(private val collectionRepository: 
                 collectionRepository.updateFavourite(MetCollectionFavourite(item.objectId, checked))
             }
 
-            if (favouritesOnly && !item.favourite) {
+            if (isFavouritesOnly() && !item.favourite) {
                 viewModelScope.launch {
                     _items.value = collectionRepository.getFavourites()
                 }

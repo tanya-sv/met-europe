@@ -53,6 +53,10 @@ class CollectionRepository @Inject constructor(
         return if (excludeMiniatures) metCollectionDao.getAllExcludeMiniatures() else metCollectionDao.getAll()
     }
 
+    suspend fun searchByTag(tag: String): List<MetCollectionItem> {
+        return metCollectionDao.findByTag(tag)
+    }
+
     suspend fun getObjectDetailsById(objectId: Int): MetObject? {
         return withContext(Dispatchers.IO) {
             metMuseumApi.getObjectById(objectId).body()

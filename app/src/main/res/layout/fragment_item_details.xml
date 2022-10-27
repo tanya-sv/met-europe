@@ -105,7 +105,7 @@
                         android:layout_margin="6dp"
                         android:text="@{viewmodel.itemDetails.title + `, ` + viewmodel.itemDetails.objectDate}"
                         android:textColor="@color/white"
-                        android:textSize="16sp"
+                        android:textSize="18sp"
                         android:textStyle="bold"
                         tools:text="Title" />
 
@@ -118,6 +118,26 @@
                         android:textSize="16sp"
                         android:visibility="@{viewmodel.itemDetails.artistDisplayName.empty ? View.GONE : View.VISIBLE}"
                         tools:text="Artist Name (Artist Bio)" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_margin="8dp"
+                        android:background="@color/grey_700" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvTags"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:items="@{viewmodel.itemDetails.tags}"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_margin="8dp"
+                        android:background="@color/grey_700" />
 
                     <TextView
                         android:layout_width="wrap_content"
