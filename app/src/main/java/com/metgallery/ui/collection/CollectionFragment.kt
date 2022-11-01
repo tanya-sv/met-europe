@@ -37,6 +37,10 @@ class CollectionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
 
+        arguments?.let {
+            viewModel.readFromBundle(it)
+        }
+
         viewDataBinding.toolbar.apply {
             setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material)
             setNavigationOnClickListener {
@@ -46,8 +50,7 @@ class CollectionFragment : Fragment() {
 
         viewDataBinding.rvCollection.adapter = CollectionAdapter(viewModel)
 
-        val favourites = arguments?.getBoolean("favourites") ?: false
-        if (!favourites) {
+        if (!viewModel.isFavouritesOnly()) {
             viewDataBinding.toolbar.apply {
                 inflateMenu(R.menu.menu_collection_page)
                 setOnMenuItemClickListener { menuItem ->
@@ -65,20 +68,17 @@ class CollectionFragment : Fragment() {
             }
         }
 
-        val era = arguments?.getSerializable("era") as EuropeanCollectionEra? ?: EuropeanCollectionEra.None
-        val artistNationality =
-            arguments?.getSerializable("nationality") as ArtistNationality? ?: ArtistNationality.None
-        val excludeMiniatures = arguments?.getBoolean("excludeMiniatures") ?: false
-
         viewModel.items.observe(this.viewLifecycleOwner) {
             val title =
-                if (favourites) resources.getString(R.string.favourites)
-                else "${era.displayNameOrEmpty()}  ${artistNationality.displayNameOrEmpty()}"
+                if (viewModel.isFavouritesOnly()) resources.getString(R.string.favourites)
+                else if (!viewModel.getTag().isNullOrBlank()) "#${viewModel.getTag()}"
+                else if (viewModel.getEra().isNone() && viewModel.getArtistNationality().isNone()) "All"
+                else "${viewModel.getEra().displayNameOrEmpty()}  ${viewModel.getArtistNationality().displayNameOrEmpty()}"
 
             viewDataBinding.toolbar.title = "$title (${it.size})"
         }
 
-        viewModel.loadCollection(favourites, artistNationality, era, excludeMiniatures)
+        viewModel.loadCollection()
 
         viewModel.selectedItem.observe(this.viewLifecycleOwner, EventObserver {
             val bundle = bundleOf(

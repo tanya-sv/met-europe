@@ -53,8 +53,10 @@ data class MetObject(
     //val metadataDate: String,
     //val repository: String,
     val objectURL: String = "",
-    //val tags: Map<String, String>,
+    val tags: List<Tag> = emptyList(),
     //val objectWikidata_URL: String,
     //val isTimelineWork: String,
     //val GalleryNumber: String
 )
+
+data class Tag(val term: String)

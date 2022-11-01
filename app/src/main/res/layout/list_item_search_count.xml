@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.metgallery.data.model.SearchTag" />
+
+        <variable
+            name="viewmodel"
+            type="com.metgallery.ui.search.SearchViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:foreground="?attr/selectableItemBackground"
+        android:onClick="@{() -> viewmodel.onItemClicked(item)}">
+
+        <TextView
+            android:id="@+id/tvTagName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:text="@{`#`+ item.tag}"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="TestTag" />
+
+
+        <TextView
+            android:id="@+id/tvItemsCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTagName"
+            android:onClick="@{() -> viewmodel.onItemClicked(item)}"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:text="@{item.count + ` items`}"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            tools:text="TestTag" />
+
+    </RelativeLayout>
+
+</layout>

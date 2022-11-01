@@ -53,6 +53,33 @@ class CollectionRepository @Inject constructor(
         return if (excludeMiniatures) metCollectionDao.getAllExcludeMiniatures() else metCollectionDao.getAll()
     }
 
+    suspend fun searchByTag(tag: String): List<MetCollectionItem> {
+        return metCollectionDao.getAll().filter { it.tags.map { it.lowercase() }.contains(tag.lowercase()) }
+    }
+
+    suspend fun getCountByTag(tag: String): List<SearchTag> {
+        val result = mutableListOf<SearchTag>()
+
+        val all = metCollectionDao.getAll()
+
+        val filteredContains = all.filter { it.tags.map { it.lowercase() }.contains(tag.lowercase())}
+        result.add(SearchTag(tag, filteredContains.size))
+
+        val allTags = mutableListOf<String>()
+        all.forEach {
+            allTags.addAll(it.tags)
+        }
+
+        val matchingTags = allTags.toSet().filter { it.lowercase().startsWith(tag.lowercase()) }
+        matchingTags.forEach { matchingTag ->
+            //avoid duplicates
+            if (!result.map { it.tag.lowercase() }.contains(matchingTag.lowercase())) {
+                result.add(SearchTag(matchingTag, all.filter { it.tags.contains(matchingTag) }.size))
+            }
+        }
+        return result
+    }
+
     suspend fun getObjectDetailsById(objectId: Int): MetObject? {
         return withContext(Dispatchers.IO) {
             metMuseumApi.getObjectById(objectId).body()

@@ -1,6 +1,5 @@
 package com.metgallery.ui.item_details
 
-import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,6 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.metgallery.data.CollectionRepository
 import com.metgallery.data.model.MetCollectionFavourite
 import com.metgallery.data.model.MetObject
+import com.metgallery.data.model.Tag
+import com.metgallery.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,6 +27,13 @@ class ItemDetailsViewModel @Inject constructor(private val collectionRepository:
 
     private val _dataLoading = MutableLiveData<Boolean>()
     val dataLoading: LiveData<Boolean> = _dataLoading
+
+    private val _selectedTag = MutableLiveData<Event<Tag>>()
+    val selectedTag: LiveData<Event<Tag>> = _selectedTag
+
+    fun onTagClicked(tag: Tag) {
+        _selectedTag.value = Event(tag)
+    }
 
     fun start(objectId: Int, favourite: Boolean) {
         if (_isDataAvailable.value == true || _dataLoading.value == true) {

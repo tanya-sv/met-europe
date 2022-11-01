@@ -4,13 +4,16 @@
     <string name="action_download">Download</string>
     <string name="action_share">Share</string>
     <string name="action_favourites">Favourites</string>
+    <string name="action_search">Search</string>
 
     <!-- Strings used for fragments for navigation -->
     <string name="first_page_fragment_label">First Page</string>
     <string name="collection_fragment_label">Collection</string>
     <string name="item_details_fragment_label">Item Details</string>
+    <string name="search_fragment_label">Search</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+
     <string name="title">Title</string>
     <string name="collection_item">Collection Item</string>
     <string name="explore">Explore</string>
@@ -18,4 +21,5 @@
     <string name="the_metropolitan_museum_of_art">The Metropolitan Museum of Art</string>
     <string name="exclude_miniatures">Exclude Miniatures</string>
     <string name="favourites">Favourites</string>
+    <string name="enter_tag">Enter tag</string>
 </resources>

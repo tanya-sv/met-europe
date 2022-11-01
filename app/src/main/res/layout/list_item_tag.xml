@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.metgallery.data.model.Tag" />
+
+        <variable
+            name="viewmodel"
+            type="com.metgallery.ui.item_details.ItemDetailsViewModel" />
+    </data>
+
+    <TextView
+        android:id="@+id/tvTagName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:foreground="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:text="@{`#`+ item.term}"
+        android:textColor="@color/tag_color"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:onClick="@{() -> viewmodel.onTagClicked(item)}"
+        tools:text="TestTag" />
+</layout>
