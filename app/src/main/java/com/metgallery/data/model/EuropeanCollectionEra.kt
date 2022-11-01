@@ -12,6 +12,8 @@ enum class EuropeanCollectionEra(val displayValue: String, val dateBegin: Int, v
         return displayValue
     }
 
+    fun isNone(): Boolean = this == None
+
     fun displayNameOrEmpty() = if (this != None) {
         displayValue
     } else ""

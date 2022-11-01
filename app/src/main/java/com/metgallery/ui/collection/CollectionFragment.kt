@@ -8,6 +8,8 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.metgallery.data.model.ArtistNationality
+import com.metgallery.data.model.EuropeanCollectionEra
 import com.metgallery.ui.R
 import com.metgallery.ui.databinding.FragmentCollectionBinding
 import com.metgallery.util.EventObserver
@@ -70,6 +72,7 @@ class CollectionFragment : Fragment() {
             val title =
                 if (viewModel.isFavouritesOnly()) resources.getString(R.string.favourites)
                 else if (!viewModel.getTag().isNullOrBlank()) "#${viewModel.getTag()}"
+                else if (viewModel.getEra().isNone() && viewModel.getArtistNationality().isNone()) "All"
                 else "${viewModel.getEra().displayNameOrEmpty()}  ${viewModel.getArtistNationality().displayNameOrEmpty()}"
 
             viewDataBinding.toolbar.title = "$title (${it.size})"

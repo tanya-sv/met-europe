@@ -33,6 +33,8 @@ enum class ArtistNationality(val displayValue: String) {
         return displayValue
     }
 
+    fun isNone(): Boolean = this == None
+
     fun displayNameOrEmpty() = if (this != None) {
         displayValue
     } else ""
