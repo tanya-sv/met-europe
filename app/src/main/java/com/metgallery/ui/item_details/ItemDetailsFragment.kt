@@ -212,7 +212,7 @@ class ItemDetailsFragment : Fragment() {
             fOut.close()
 
             //notify phone about new file
-            MediaScannerConnection.scanFile(context, arrayOf(imageFile.toString()), null, null)
+            MediaScannerConnection.scanFile(context, arrayOf(imageFile.absolutePath), null, null)
 
             Toast.makeText(requireContext(), "Image Saved!", Toast.LENGTH_LONG).show()
         } catch (e: Exception) {

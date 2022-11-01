@@ -14,6 +14,11 @@
         <action
             android:id="@+id/action_FirstPageFragment_to_CollectionFragment"
             app:destination="@id/CollectionFragment" />
+
+        <action
+            android:id="@+id/action_FirstPageFragment_to_SearchFragment"
+            app:destination="@id/SearchFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/CollectionFragment"
@@ -45,4 +50,16 @@
             app:destination="@id/CollectionFragment" />
 
     </fragment>
+    <fragment
+        android:id="@+id/SearchFragment"
+        android:name="com.metgallery.ui.search.SearchFragment"
+        android:label="@string/search_fragment_label"
+        tools:layout="@layout/fragment_search">
+
+        <action
+            android:id="@+id/action_SearchFragment_to_CollectionFragment"
+            app:destination="@id/CollectionFragment" />
+
+    </fragment>
+
 </navigation>

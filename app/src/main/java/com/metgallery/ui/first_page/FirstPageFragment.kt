@@ -48,6 +48,8 @@ class FirstPageFragment : Fragment() {
                         "favourites" to true
                     )
                     findNavController().navigate(R.id.action_FirstPageFragment_to_CollectionFragment, bundle)
+                } else if(menuItem.itemId == R.id.action_search) {
+                    findNavController().navigate(R.id.action_FirstPageFragment_to_SearchFragment, Bundle())
                 }
                 true
             }

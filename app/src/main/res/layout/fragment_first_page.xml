@@ -33,16 +33,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@null"
             android:theme="@style/Theme.Launcher.AppBarOverlay"
-            app:popupTheme="@style/Theme.Launcher.PopupOverlay">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:src="@drawable/ic_search" />
-
-
-        </androidx.appcompat.widget.Toolbar>
+            app:popupTheme="@style/Theme.Launcher.PopupOverlay"/>
 
         <TextView
             android:id="@+id/tvMetTitle"

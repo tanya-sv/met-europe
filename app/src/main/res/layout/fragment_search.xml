@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewmodel"
-            type="com.metgallery.ui.collection.CollectionViewModel" />
+            type="com.metgallery.ui.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/Theme.Launcher.AppBarOverlay"
-            app:layout_constraintBottom_toTopOf="@id/rvCollection"
+            app:layout_constraintBottom_toTopOf="@id/etSearchTerm"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -35,16 +35,28 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
+        <EditText
+            android:id="@+id/etSearchTerm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textColorHint="@color/grey_700"
+            app:layout_constraintBottom_toTopOf="@id/rvSearchResults"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+            android:hint="@string/enter_tag"/>
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvCollection"
+            android:id="@+id/rvSearchResults"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
             app:items="@{viewmodel.items}"
-            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/appBarLayout"
-            app:spanCount="2" />
+            app:layout_constraintTop_toBottomOf="@id/etSearchTerm" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

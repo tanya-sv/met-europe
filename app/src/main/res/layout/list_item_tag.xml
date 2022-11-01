@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="item"
             type="com.metgallery.data.model.Tag" />
@@ -11,7 +10,6 @@
         <variable
             name="viewmodel"
             type="com.metgallery.ui.item_details.ItemDetailsViewModel" />
-
     </data>
 
     <TextView

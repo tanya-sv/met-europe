@@ -45,9 +45,6 @@ interface MetCollectionDao {
         endDate: Int
     ): List<MetCollectionItem>
 
-    @Query("SELECT * FROM met_collection_item WHERE tags LIKE '%' || :tag || '%' ")
-    suspend fun findByTag(tag: String): List<MetCollectionItem>
-
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(items: List<MetCollectionItem>)
 
