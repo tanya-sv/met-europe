@@ -43,8 +43,7 @@ class FirstPageFragment : Fragment() {
         viewDataBinding.buttonExplore.setOnClickListener {
             val bundle = bundleOf(
                 "era" to viewModel.selectedEra,
-                "nationality" to viewModel.selectedArtistNationality,
-                "excludeMiniatures" to viewModel.excludeMiniatures
+                "nationality" to viewModel.selectedArtistNationality
             )
             findNavController().navigate(R.id.action_FirstPageFragment_to_CollectionFragment, bundle)
         }

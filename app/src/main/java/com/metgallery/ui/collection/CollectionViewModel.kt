@@ -1,7 +1,6 @@
 package com.metgallery.ui.collection
 
 import android.os.Bundle
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -32,8 +31,6 @@ class CollectionViewModel @Inject constructor(private val collectionRepository: 
     private var _artistNationality: ArtistNationality = ArtistNationality.None
     fun getArtistNationality(): ArtistNationality = _artistNationality
 
-    private var _excludeMiniatures = false
-
     private var _favouritesOnly: Boolean = false
     fun isFavouritesOnly(): Boolean = _favouritesOnly
 
@@ -47,7 +44,6 @@ class CollectionViewModel @Inject constructor(private val collectionRepository: 
         bundle.getSerializable("nationality")?.let {
             _artistNationality = it as ArtistNationality
         }
-        _excludeMiniatures = bundle.getBoolean("excludeMiniatures")
         _favouritesOnly = bundle.getBoolean("favourites")
         _tag = bundle.getString("tag")
     }
@@ -63,7 +59,7 @@ class CollectionViewModel @Inject constructor(private val collectionRepository: 
                 else if (!_tag.isNullOrBlank()) {
                     collectionRepository.searchByTag(_tag!!)
                 } else
-                    collectionRepository.searchEuropeanPaintings(_artistNationality, _era, _excludeMiniatures)
+                    collectionRepository.searchEuropeanPaintings(_artistNationality, _era)
         }
     }
 
