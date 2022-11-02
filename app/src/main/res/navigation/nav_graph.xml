@@ -20,6 +20,7 @@
             app:destination="@id/SearchFragment" />
 
     </fragment>
+
     <fragment
         android:id="@+id/CollectionFragment"
         android:name="com.metgallery.ui.collection.CollectionFragment"
@@ -34,11 +35,26 @@
             android:id="@+id/action_CollectionFragment_to_ItemDetailsFragment"
             app:destination="@id/ItemDetailsFragment" />
 
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/FavouritesFragment"
+        android:name="com.metgallery.ui.collection.CollectionFragment"
+        android:label="@string/collection_fragment_label"
+        tools:layout="@layout/fragment_collection">
+
+        <argument
+            android:name="favourites"
+            android:defaultValue="true"
+            app:argType="boolean" />
+
         <action
-            android:id="@+id/action_CollectionFragment_to_CollectionFragment"
-            app:destination="@id/CollectionFragment" />
+            android:id="@+id/action_CollectionFragment_to_ItemDetailsFragment"
+            app:destination="@id/ItemDetailsFragment" />
 
     </fragment>
+
     <fragment
         android:id="@+id/ItemDetailsFragment"
         android:name="com.metgallery.ui.item_details.ItemDetailsFragment"

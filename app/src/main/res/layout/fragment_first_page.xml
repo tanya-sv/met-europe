@@ -27,14 +27,6 @@
             app:imageUrl="@{viewmodel.randomUrl}"
             tools:src="@drawable/ic_launcher_background" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@null"
-            android:theme="@style/Theme.Launcher.AppBarOverlay"
-            app:popupTheme="@style/Theme.Launcher.PopupOverlay"/>
-
         <TextView
             android:id="@+id/tvMetTitle"
             android:layout_width="wrap_content"

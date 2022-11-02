@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@id/FirstPageFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_home"
+        android:title="@string/first_page_fragment_label"/>
+    <item
+        android:id="@id/SearchFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search_fragment_label"/>
+
+    <item
+        android:id="@id/FavouritesFragment"
+        android:enabled="true"
+        android:icon="@drawable/ic_favourite"
+        android:title="@string/favourites"/>
+
+</menu>

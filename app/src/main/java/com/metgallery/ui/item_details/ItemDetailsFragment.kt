@@ -147,11 +147,6 @@ class ItemDetailsFragment : Fragment() {
                 downloadOriginalImage()
                 true
             }
-            R.id.action_favourites -> {
-                val bundle = bundleOf("favourites" to true)
-                findNavController().navigate(R.id.action_ItemDetailsFragment_to_CollectionFragment, bundle)
-                true
-            }
             else -> false
         }
 

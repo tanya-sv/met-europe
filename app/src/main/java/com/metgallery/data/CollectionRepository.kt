@@ -77,7 +77,7 @@ class CollectionRepository @Inject constructor(
                 result.add(SearchTag(matchingTag, all.filter { it.tags.contains(matchingTag) }.size))
             }
         }
-        return result
+        return result.sortedByDescending { it.count }
     }
 
     suspend fun getObjectDetailsById(objectId: Int): MetObject? {

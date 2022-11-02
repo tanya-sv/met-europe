@@ -40,21 +40,6 @@ class FirstPageFragment : Fragment() {
         setupEraSpinner()
         setupArtistNationalitySpinner()
 
-        viewDataBinding.toolbar.apply {
-            inflateMenu(R.menu.menu_first_page)
-            setOnMenuItemClickListener { menuItem ->
-                if (menuItem.itemId == R.id.action_favourites) {
-                    val bundle = bundleOf(
-                        "favourites" to true
-                    )
-                    findNavController().navigate(R.id.action_FirstPageFragment_to_CollectionFragment, bundle)
-                } else if(menuItem.itemId == R.id.action_search) {
-                    findNavController().navigate(R.id.action_FirstPageFragment_to_SearchFragment, Bundle())
-                }
-                true
-            }
-        }
-
         viewDataBinding.buttonExplore.setOnClickListener {
             val bundle = bundleOf(
                 "era" to viewModel.selectedEra,
