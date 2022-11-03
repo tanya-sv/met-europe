@@ -52,7 +52,7 @@ class CollectionFragment : Fragment() {
 
         viewModel.items.observe(this.viewLifecycleOwner) {
             val title =
-                if (viewModel.isFavouritesOnly()) resources.getString(R.string.favourites)
+                if (viewModel.isFavouritesOnly()) resources.getString(R.string.favourites_fragment_label)
                 else if (!viewModel.getTag().isNullOrBlank()) "#${viewModel.getTag()}"
                 else if (viewModel.getEra().isNone() && viewModel.getArtistNationality().isNone()) "All"
                 else "${viewModel.getEra().displayNameOrEmpty()}  ${viewModel.getArtistNationality().displayNameOrEmpty()}"
