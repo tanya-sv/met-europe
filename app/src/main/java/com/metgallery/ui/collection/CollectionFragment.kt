@@ -50,27 +50,9 @@ class CollectionFragment : Fragment() {
 
         viewDataBinding.rvCollection.adapter = CollectionAdapter(viewModel)
 
-        if (!viewModel.isFavouritesOnly()) {
-            viewDataBinding.toolbar.apply {
-                inflateMenu(R.menu.menu_collection_page)
-                setOnMenuItemClickListener { menuItem ->
-                    if (menuItem.itemId == R.id.action_favourites) {
-                        val bundle = bundleOf(
-                            "favourites" to true
-                        )
-                        findNavController().navigate(
-                            R.id.action_CollectionFragment_to_CollectionFragment,
-                            bundle
-                        )
-                    }
-                    true
-                }
-            }
-        }
-
         viewModel.items.observe(this.viewLifecycleOwner) {
             val title =
-                if (viewModel.isFavouritesOnly()) resources.getString(R.string.favourites)
+                if (viewModel.isFavouritesOnly()) resources.getString(R.string.favourites_fragment_label)
                 else if (!viewModel.getTag().isNullOrBlank()) "#${viewModel.getTag()}"
                 else if (viewModel.getEra().isNone() && viewModel.getArtistNationality().isNone()) "All"
                 else "${viewModel.getEra().displayNameOrEmpty()}  ${viewModel.getArtistNationality().displayNameOrEmpty()}"

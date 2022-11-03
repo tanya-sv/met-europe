@@ -3,63 +3,166 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstPageFragment">
+    app:startDestination="@id/home">
 
-    <fragment
-        android:id="@+id/FirstPageFragment"
-        android:name="com.metgallery.ui.first_page.FirstPageFragment"
-        android:label="@string/first_page_fragment_label"
-        tools:layout="@layout/fragment_first_page">
+    <navigation
+        android:id="@+id/home"
+        app:startDestination="@id/FirstPageFragment">
 
-        <action
-            android:id="@+id/action_FirstPageFragment_to_CollectionFragment"
-            app:destination="@id/CollectionFragment" />
+        <fragment
+            android:id="@+id/FirstPageFragment"
+            android:name="com.metgallery.ui.first_page.FirstPageFragment"
+            android:label="@string/first_page_fragment_label"
+            tools:layout="@layout/fragment_first_page">
 
-        <action
-            android:id="@+id/action_FirstPageFragment_to_SearchFragment"
-            app:destination="@id/SearchFragment" />
+            <action
+                android:id="@+id/action_FirstPageFragment_to_CollectionFragment"
+                app:destination="@id/CollectionFragment" />
 
-    </fragment>
-    <fragment
-        android:id="@+id/CollectionFragment"
-        android:name="com.metgallery.ui.collection.CollectionFragment"
-        android:label="@string/collection_fragment_label"
-        tools:layout="@layout/fragment_collection">
+        </fragment>
 
-        <action
-            android:id="@+id/action_CollectionFragment_to_FirstPageFragment"
-            app:destination="@id/FirstPageFragment" />
+        <fragment
+            android:id="@+id/CollectionFragment"
+            android:name="com.metgallery.ui.collection.CollectionFragment"
+            android:label="@string/collection_fragment_label"
+            tools:layout="@layout/fragment_collection">
 
-        <action
-            android:id="@+id/action_CollectionFragment_to_ItemDetailsFragment"
-            app:destination="@id/ItemDetailsFragment" />
+            <action
+                android:id="@+id/action_CollectionFragment_to_FirstPageFragment"
+                app:destination="@id/FirstPageFragment" />
 
-        <action
-            android:id="@+id/action_CollectionFragment_to_CollectionFragment"
-            app:destination="@id/CollectionFragment" />
+            <action
+                android:id="@+id/action_CollectionFragment_to_ItemDetailsFragment"
+                app:destination="@id/ItemDetailsFragment" />
 
-    </fragment>
-    <fragment
-        android:id="@+id/ItemDetailsFragment"
-        android:name="com.metgallery.ui.item_details.ItemDetailsFragment"
-        android:label="@string/item_details_fragment_label"
-        tools:layout="@layout/fragment_item_details">
+        </fragment>
 
-        <action
-            android:id="@+id/action_ItemDetailsFragment_to_CollectionFragment"
-            app:destination="@id/CollectionFragment" />
+        <fragment
+            android:id="@+id/ItemDetailsFragment"
+            android:name="com.metgallery.ui.item_details.ItemDetailsFragment"
+            android:label="@string/item_details_fragment_label"
+            tools:layout="@layout/fragment_item_details">
 
-    </fragment>
-    <fragment
-        android:id="@+id/SearchFragment"
-        android:name="com.metgallery.ui.search.SearchFragment"
-        android:label="@string/search_fragment_label"
-        tools:layout="@layout/fragment_search">
+            <action
+                android:id="@+id/action_ItemDetailsFragment_to_CollectionFragment"
+                app:destination="@id/CollectionFragment" />
 
-        <action
-            android:id="@+id/action_SearchFragment_to_CollectionFragment"
-            app:destination="@id/CollectionFragment" />
+        </fragment>
 
-    </fragment>
+    </navigation>
+
+    <navigation
+        android:id="@+id/search"
+        app:startDestination="@id/SearchFragment">
+
+        <fragment
+            android:id="@+id/SearchFragment"
+            android:name="com.metgallery.ui.search.SearchFragment"
+            android:label="@string/search_fragment_label"
+            tools:layout="@layout/fragment_search">
+
+            <action
+                android:id="@+id/action_SearchFragment_to_CollectionFragment"
+                app:destination="@id/CollectionFragment" />
+
+        </fragment>
+
+
+        <fragment
+            android:id="@id/CollectionFragment"
+            android:name="com.metgallery.ui.collection.CollectionFragment"
+            android:label="@string/collection_fragment_label"
+            tools:layout="@layout/fragment_collection">
+
+            <action
+                android:id="@+id/action_CollectionFragment_to_FirstPageFragment"
+                app:destination="@id/FirstPageFragment" />
+
+            <action
+                android:id="@+id/action_CollectionFragment_to_ItemDetailsFragment"
+                app:destination="@id/ItemDetailsFragment" />
+
+        </fragment>
+
+        <fragment
+            android:id="@id/CollectionFragment"
+            android:name="com.metgallery.ui.collection.CollectionFragment"
+            android:label="@string/collection_fragment_label"
+            tools:layout="@layout/fragment_collection">
+
+            <action
+                android:id="@+id/action_CollectionFragment_to_FirstPageFragment"
+                app:destination="@id/FirstPageFragment" />
+
+            <action
+                android:id="@+id/action_CollectionFragment_to_ItemDetailsFragment"
+                app:destination="@id/ItemDetailsFragment" />
+
+        </fragment>
+
+        <fragment
+            android:id="@+id/ItemDetailsFragment"
+            android:name="com.metgallery.ui.item_details.ItemDetailsFragment"
+            android:label="@string/item_details_fragment_label"
+            tools:layout="@layout/fragment_item_details">
+
+            <action
+                android:id="@+id/action_ItemDetailsFragment_to_CollectionFragment"
+                app:destination="@id/CollectionFragment" />
+
+        </fragment>
+
+    </navigation>
+
+    <navigation
+        android:id="@+id/favourites"
+        app:startDestination="@id/FavouritesFragment">
+
+        <fragment
+            android:id="@+id/FavouritesFragment"
+            android:name="com.metgallery.ui.collection.CollectionFragment"
+            android:label="@string/collection_fragment_label"
+            tools:layout="@layout/fragment_collection">
+
+            <argument
+                android:name="favourites"
+                android:defaultValue="true"
+                app:argType="boolean" />
+
+            <action
+                android:id="@+id/action_CollectionFragment_to_ItemDetailsFragment"
+                app:destination="@id/ItemDetailsFragment" />
+
+        </fragment>
+
+        <fragment
+            android:id="@id/CollectionFragment"
+            android:name="com.metgallery.ui.collection.CollectionFragment"
+            android:label="@string/collection_fragment_label"
+            tools:layout="@layout/fragment_collection">
+
+            <action
+                android:id="@+id/action_CollectionFragment_to_FirstPageFragment"
+                app:destination="@id/FirstPageFragment" />
+
+            <action
+                android:id="@+id/action_CollectionFragment_to_ItemDetailsFragment"
+                app:destination="@id/ItemDetailsFragment" />
+
+        </fragment>
+
+        <fragment
+            android:id="@+id/ItemDetailsFragment"
+            android:name="com.metgallery.ui.item_details.ItemDetailsFragment"
+            android:label="@string/item_details_fragment_label"
+            tools:layout="@layout/fragment_item_details">
+
+            <action
+                android:id="@+id/action_ItemDetailsFragment_to_CollectionFragment"
+                app:destination="@id/CollectionFragment" />
+
+        </fragment>
+
+    </navigation>
 
 </navigation>

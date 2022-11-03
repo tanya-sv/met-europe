@@ -27,14 +27,6 @@
             app:imageUrl="@{viewmodel.randomUrl}"
             tools:src="@drawable/ic_launcher_background" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@null"
-            android:theme="@style/Theme.Launcher.AppBarOverlay"
-            app:popupTheme="@style/Theme.Launcher.PopupOverlay"/>
-
         <TextView
             android:id="@+id/tvMetTitle"
             android:layout_width="wrap_content"
@@ -69,23 +61,10 @@
             android:id="@+id/spinnerArtisNationality"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_above="@id/checkboxExcludeMiniatures"
+            android:layout_above="@id/buttonExplore"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="12dp"
             android:background="@drawable/grey_outline" />
-
-        <CheckBox
-            android:id="@+id/checkboxExcludeMiniatures"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/buttonExplore"
-            android:layout_alignParentEnd="true"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="4dp"
-            android:checked="@={viewmodel.excludeMiniatures}"
-            android:layoutDirection="rtl"
-            android:text="@string/exclude_miniatures"
-            android:textColor="@color/white" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonExplore"
@@ -94,7 +73,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="12dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="22dp"
             android:text="@string/explore" />
 
     </RelativeLayout>

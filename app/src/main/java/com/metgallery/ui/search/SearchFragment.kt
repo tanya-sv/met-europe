@@ -38,15 +38,7 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
-
-        viewDataBinding.toolbar.apply {
-            setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material)
-            setNavigationOnClickListener {
-                findNavController().popBackStack()
-            }
-        }
 
         viewDataBinding.rvSearchResults.adapter = SearchAdapter(viewModel)
 

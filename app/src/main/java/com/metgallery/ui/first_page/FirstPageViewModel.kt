@@ -21,16 +21,12 @@ class FirstPageViewModel @Inject constructor(private val collectionRepository: C
         "https://images.metmuseum.org/CRDImages/ep/web-large/DP169402.jpg",
         "https://images.metmuseum.org/CRDImages/ep/web-large/DP-406-01.jpg",
         "https://images.metmuseum.org/CRDImages/ep/web-large/DP167132.jpg",
-        "https://images.metmuseum.org/CRDImages/ep/web-large/DP353257.jpg",
-        "https://images.metmuseum.org/CRDImages/ep/web-large/Wrightsman93.jpg",
-        "https://images.metmuseum.org/CRDImages/ep/web-large/DP169564.jpg",
-        "https://images.metmuseum.org/CRDImages/ep/web-large/DP320086.jpg")
+        "https://images.metmuseum.org/CRDImages/ep/web-large/DP169564.jpg")
 
     private val _randomUrl = MutableLiveData<String>().apply { value = randomImages.random() }
     val randomUrl: LiveData<String> = _randomUrl
 
     var selectedEra = EuropeanCollectionEra.None
     var selectedArtistNationality = ArtistNationality.None
-    var excludeMiniatures: Boolean = false
 
 }

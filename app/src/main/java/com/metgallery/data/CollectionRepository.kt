@@ -18,39 +18,25 @@ class CollectionRepository @Inject constructor(
 
     suspend fun searchEuropeanPaintings(
         artistNationality: ArtistNationality,
-        era: EuropeanCollectionEra,
-        excludeMiniatures: Boolean
+        era: EuropeanCollectionEra
     ): List<MetCollectionItem> {
 
         if (artistNationality != ArtistNationality.None && era != EuropeanCollectionEra.None) {
-            return if (excludeMiniatures) {
-                metCollectionDao.findByArtistNationalityAndEraExcludeMiniatures(
-                    artistNationality.displayValue,
-                    era.dateBegin,
-                    era.dateEnd
-                )
-            } else {
-                metCollectionDao.findByArtistNationalityAndEra(
-                    artistNationality.displayValue,
-                    era.dateBegin,
-                    era.dateEnd
-                )
-            }
+            return metCollectionDao.findByArtistNationalityAndEra(
+                artistNationality.displayValue,
+                era.dateBegin,
+                era.dateEnd
+            )
+
         }
         if (artistNationality != ArtistNationality.None) {
-            return if (excludeMiniatures) metCollectionDao.findByArtistNationalityExcludeMiniatures(
-                artistNationality.displayValue
-            ) else
-                metCollectionDao.findByArtistNationality(artistNationality.displayValue)
+            return metCollectionDao.findByArtistNationality(artistNationality.displayValue)
         }
 
         if (era != EuropeanCollectionEra.None) {
-            return if (excludeMiniatures) metCollectionDao.findByEraExcludeMiniatures(
-                era.dateBegin,
-                era.dateEnd
-            ) else metCollectionDao.findByEra(era.dateBegin, era.dateEnd)
+            return metCollectionDao.findByEra(era.dateBegin, era.dateEnd)
         }
-        return if (excludeMiniatures) metCollectionDao.getAllExcludeMiniatures() else metCollectionDao.getAll()
+        return metCollectionDao.getAll()
     }
 
     suspend fun searchByTag(tag: String): List<MetCollectionItem> {
@@ -62,7 +48,7 @@ class CollectionRepository @Inject constructor(
 
         val all = metCollectionDao.getAll()
 
-        val filteredContains = all.filter { it.tags.map { it.lowercase() }.contains(tag.lowercase())}
+        val filteredContains = all.filter { it.tags.map { it.lowercase() }.contains(tag.lowercase()) }
         result.add(SearchTag(tag, filteredContains.size))
 
         val allTags = mutableListOf<String>()
@@ -77,7 +63,7 @@ class CollectionRepository @Inject constructor(
                 result.add(SearchTag(matchingTag, all.filter { it.tags.contains(matchingTag) }.size))
             }
         }
-        return result
+        return result.sortedByDescending { it.count }
     }
 
     suspend fun getObjectDetailsById(objectId: Int): MetObject? {
@@ -86,7 +72,7 @@ class CollectionRepository @Inject constructor(
         }
     }
 
-    suspend fun getFavourites() : List<MetCollectionItem>  {
+    suspend fun getFavourites(): List<MetCollectionItem> {
         return metCollectionDao.getAllFavourites()
     }
 
