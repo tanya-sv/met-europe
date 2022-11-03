@@ -2,18 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@id/FirstPageFragment"
+        android:id="@id/home"
         android:enabled="true"
         android:icon="@drawable/ic_home"
         android:title="@string/first_page_fragment_label"/>
     <item
-        android:id="@id/SearchFragment"
+        android:id="@id/search"
         android:enabled="true"
         android:icon="@drawable/ic_search"
         android:title="@string/search_fragment_label"/>
 
     <item
-        android:id="@id/FavouritesFragment"
+        android:id="@id/favourites"
         android:enabled="true"
         android:icon="@drawable/ic_favourite"
         android:title="@string/favourites"/>
