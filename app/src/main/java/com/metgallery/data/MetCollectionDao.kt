@@ -29,6 +29,9 @@ interface MetCollectionDao {
         endDate: Int
     ): List<MetCollectionItem>
 
+    @Query("SELECT * FROM met_collection_item WHERE artist = :artist")
+    suspend fun findByArtist(artist: String): List<MetCollectionItem>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(items: List<MetCollectionItem>)
 

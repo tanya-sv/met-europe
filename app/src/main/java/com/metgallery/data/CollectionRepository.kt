@@ -27,8 +27,8 @@ class CollectionRepository @Inject constructor(
                 era.dateBegin,
                 era.dateEnd
             )
-
         }
+
         if (artistNationality != ArtistNationality.None) {
             return metCollectionDao.findByArtistNationality(artistNationality.displayValue)
         }
@@ -43,27 +43,41 @@ class CollectionRepository @Inject constructor(
         return metCollectionDao.getAll().filter { it.tags.map { it.lowercase() }.contains(tag.lowercase()) }
     }
 
-    suspend fun getCountByTag(tag: String): List<SearchTag> {
-        val result = mutableListOf<SearchTag>()
+    suspend fun searchByArtist(artist: String): List<MetCollectionItem> {
+        return metCollectionDao.findByArtist(artist)
+    }
+
+    suspend fun getCountBySearchTerm(term: String): List<SearchResult> {
+
+        val searchTerm = term.lowercase()
+        val result = mutableListOf<SearchResult>()
 
         val all = metCollectionDao.getAll()
 
-        val filteredContains = all.filter { it.tags.map { it.lowercase() }.contains(tag.lowercase()) }
-        result.add(SearchTag(tag, filteredContains.size))
+        val filteredContains = all.filter { it.tags.map { it.lowercase() }.contains(searchTerm.lowercase()) }
+        result.add(TagSearchResult(searchTerm, filteredContains.size))
 
         val allTags = mutableListOf<String>()
         all.forEach {
             allTags.addAll(it.tags)
         }
 
-        val matchingTags = allTags.toSet().filter { it.lowercase().startsWith(tag.lowercase()) }
+        val matchingTags = allTags.toSet().filter { it.lowercase().startsWith(searchTerm.lowercase()) }
         matchingTags.forEach { matchingTag ->
             //avoid duplicates
-            if (!result.map { it.tag.lowercase() }.contains(matchingTag.lowercase())) {
-                result.add(SearchTag(matchingTag, all.filter { it.tags.contains(matchingTag) }.size))
+            if (!result.map { it.term.lowercase() }.contains(matchingTag.lowercase())) {
+                result.add(TagSearchResult(matchingTag, all.filter { it.tags.contains(matchingTag) }.size))
             }
         }
-        return result.sortedByDescending { it.count }
+
+        val matchingArtists = all.map { it.artist }.toSet().filter {
+            it.lowercase().split(" ").any { it.startsWith(searchTerm.lowercase()) }
+        }
+        matchingArtists.forEach { matchingArtist ->
+            result.add(ArtistSearchResult(matchingArtist, all.filter { it.artist == matchingArtist }.size))
+        }
+
+        return result.sortedByDescending { it.resultCount }
     }
 
     suspend fun getObjectDetailsById(objectId: Int): MetObject? {

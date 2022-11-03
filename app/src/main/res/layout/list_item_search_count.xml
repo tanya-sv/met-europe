@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.metgallery.data.model.SearchTag" />
+            type="com.metgallery.data.model.SearchResult" />
 
         <variable
             name="viewmodel"
@@ -28,12 +28,11 @@
             android:layout_height="wrap_content"
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
-            android:text="@{`#`+ item.tag}"
+            android:text="@{(item.argumentName == `tag` ? `#` : ``) + item.term}"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
             tools:text="TestTag" />
-
 
         <TextView
             android:id="@+id/tvItemsCount"
@@ -43,7 +42,7 @@
             android:onClick="@{() -> viewmodel.onItemClicked(item)}"
             android:paddingStart="4dp"
             android:paddingEnd="4dp"
-            android:text="@{item.count + ` items`}"
+            android:text="@{item.resultCount + ` items`}"
             android:textColor="@color/white"
             android:textSize="14sp"
             android:textStyle="normal"
