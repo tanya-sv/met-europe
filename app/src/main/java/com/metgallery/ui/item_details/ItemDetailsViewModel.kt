@@ -31,8 +31,15 @@ class ItemDetailsViewModel @Inject constructor(private val collectionRepository:
     private val _selectedTag = MutableLiveData<Event<Tag>>()
     val selectedTag: LiveData<Event<Tag>> = _selectedTag
 
+    private val _selectedArtist = MutableLiveData<Event<String>>()
+    val selectedArtist: LiveData<Event<String>> = _selectedArtist
+
     fun onTagClicked(tag: Tag) {
         _selectedTag.value = Event(tag)
+    }
+
+    fun onArtistClicked(artist: String) {
+        _selectedArtist.value = Event(artist)
     }
 
     fun start(objectId: Int, favourite: Boolean) {

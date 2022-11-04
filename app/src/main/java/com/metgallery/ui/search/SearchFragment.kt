@@ -43,23 +43,23 @@ class SearchFragment : Fragment() {
         viewDataBinding.rvSearchResults.adapter = SearchAdapter(viewModel)
 
         viewDataBinding.etSearchTerm.addTextChangedListener(object : TextWatcher {
-            private var searchFor = ""
+            private var searchTerm = ""
 
             override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 val searchText = text.toString().trim()
-                if (searchText == searchFor)
+                if (searchText == searchTerm)
                     return
 
-                searchFor = searchText
+                searchTerm = searchText
 
                 //debounce
                 viewLifecycleOwner.lifecycleScope.launch {
                     delay(300)
-                    if (searchText != searchFor)
+                    if (searchText != searchTerm)
                         return@launch
 
-                    if (searchFor.isNotBlank()) {
-                        viewModel.searchTag(searchFor)
+                    if (searchTerm.isNotBlank()) {
+                        viewModel.search(searchTerm)
                     }
                 }
             }
@@ -68,9 +68,9 @@ class SearchFragment : Fragment() {
             override fun afterTextChanged(p0: Editable?) {}
         })
 
-        viewModel.selectedSearchTag.observe(this.viewLifecycleOwner, EventObserver {
+        viewModel.selectedSearchResult.observe(this.viewLifecycleOwner, EventObserver {
             val bundle = bundleOf(
-                "tag" to it.tag
+                it.argumentName to it.term
             )
             findNavController().navigate(R.id.action_SearchFragment_to_CollectionFragment, bundle)
         })

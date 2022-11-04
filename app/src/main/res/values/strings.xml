@@ -20,5 +20,5 @@
     <string name="explore">Explore</string>
     <string name="european_paintings_department">European Paintings Department</string>
     <string name="the_metropolitan_museum_of_art">The Metropolitan Museum of Art</string>
-    <string name="enter_tag">Enter tag</string>
+    <string name="search_hint">Search</string>
 </resources>

@@ -6,11 +6,11 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.metgallery.data.model.SearchTag
+import com.metgallery.data.model.SearchResult
 import com.metgallery.ui.databinding.ListItemSearchCountBinding
 
 class SearchAdapter(private val viewModel: SearchViewModel) :
-    ListAdapter<SearchTag, SearchAdapter.ViewHolder>(SearchCountDiffCallback()) {
+    ListAdapter<SearchResult, SearchAdapter.ViewHolder>(SearchCountDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
@@ -24,7 +24,7 @@ class SearchAdapter(private val viewModel: SearchViewModel) :
     class ViewHolder private constructor(private val binding: ListItemSearchCountBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(viewModel: SearchViewModel, item: SearchTag) {
+        fun bind(viewModel: SearchViewModel, item: SearchResult) {
             binding.viewmodel = viewModel
             binding.item = item
             binding.executePendingBindings()
@@ -41,18 +41,18 @@ class SearchAdapter(private val viewModel: SearchViewModel) :
     }
 }
 
-class SearchCountDiffCallback : DiffUtil.ItemCallback<SearchTag>() {
+class SearchCountDiffCallback : DiffUtil.ItemCallback<SearchResult>() {
 
-    override fun areItemsTheSame(oldItem: SearchTag, newItem: SearchTag): Boolean {
-        return oldItem.tag == newItem.tag && oldItem.count == newItem.count
+    override fun areItemsTheSame(oldItem: SearchResult, newItem: SearchResult): Boolean {
+        return oldItem.term == newItem.term && oldItem.resultCount == newItem.resultCount
     }
 
-    override fun areContentsTheSame(oldItem: SearchTag, newItem: SearchTag): Boolean {
+    override fun areContentsTheSame(oldItem: SearchResult, newItem: SearchResult): Boolean {
         return oldItem == newItem
     }
 }
 
 @BindingAdapter("app:items")
-fun setItems(listView: RecyclerView, items: List<SearchTag>) {
+fun setItems(listView: RecyclerView, items: List<SearchResult>) {
     (listView.adapter as SearchAdapter).submitList(items)
 }

@@ -37,6 +37,9 @@ class CollectionViewModel @Inject constructor(private val collectionRepository: 
     private var _tag: String? = null
     fun getTag(): String? = _tag
 
+    private var _artist: String? = null
+    fun getArtist(): String? = _artist
+
     fun readFromBundle(bundle: Bundle) {
         bundle.getSerializable("era")?.let {
             _era = it as EuropeanCollectionEra
@@ -46,6 +49,7 @@ class CollectionViewModel @Inject constructor(private val collectionRepository: 
         }
         _favouritesOnly = bundle.getBoolean("favourites")
         _tag = bundle.getString("tag")
+        _artist = bundle.getString("artist")
     }
 
     fun selectItem(item: MetCollectionItem) {
@@ -58,6 +62,8 @@ class CollectionViewModel @Inject constructor(private val collectionRepository: 
                 if (_favouritesOnly) collectionRepository.getFavourites()
                 else if (!_tag.isNullOrBlank()) {
                     collectionRepository.searchByTag(_tag!!)
+                } else if (!_artist.isNullOrBlank()) {
+                    collectionRepository.searchByArtist(_artist!!)
                 } else
                     collectionRepository.searchEuropeanPaintings(_artistNationality, _era)
         }

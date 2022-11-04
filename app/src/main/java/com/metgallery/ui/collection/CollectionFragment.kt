@@ -41,10 +41,12 @@ class CollectionFragment : Fragment() {
             viewModel.readFromBundle(it)
         }
 
-        viewDataBinding.toolbar.apply {
-            setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material)
-            setNavigationOnClickListener {
-                findNavController().popBackStack()
+        if (!viewModel.isFavouritesOnly()) {
+            viewDataBinding.toolbar.apply {
+                setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material)
+                setNavigationOnClickListener {
+                    findNavController().popBackStack()
+                }
             }
         }
 
@@ -54,8 +56,11 @@ class CollectionFragment : Fragment() {
             val title =
                 if (viewModel.isFavouritesOnly()) resources.getString(R.string.favourites_fragment_label)
                 else if (!viewModel.getTag().isNullOrBlank()) "#${viewModel.getTag()}"
+                else if (!viewModel.getArtist().isNullOrBlank()) "${viewModel.getArtist()}"
                 else if (viewModel.getEra().isNone() && viewModel.getArtistNationality().isNone()) "All"
-                else "${viewModel.getEra().displayNameOrEmpty()}  ${viewModel.getArtistNationality().displayNameOrEmpty()}"
+                else "${viewModel.getEra().displayNameOrEmpty()}  ${
+                    viewModel.getArtistNationality().displayNameOrEmpty()
+                }"
 
             viewDataBinding.toolbar.title = "$title (${it.size})"
         }
