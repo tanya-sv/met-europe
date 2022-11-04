@@ -92,6 +92,13 @@ class ItemDetailsFragment : Fragment() {
             )
             findNavController().navigate(R.id.action_ItemDetailsFragment_to_CollectionFragment, bundle)
         })
+
+        viewModel.selectedArtist.observe(this.viewLifecycleOwner, EventObserver {
+            val bundle = bundleOf(
+                "artist" to it
+            )
+            findNavController().navigate(R.id.action_ItemDetailsFragment_to_CollectionFragment, bundle)
+        })
     }
 
     //presetting image size to avoid UI jumping up and down
@@ -104,9 +111,7 @@ class ItemDetailsFragment : Fragment() {
             (requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager)
                 .defaultDisplay.getMetrics(displayMetrics)
 
-            val newWidth = displayMetrics.widthPixels -
-                    resources.getDimensionPixelSize(R.dimen.item_details_image_margin) * 2 -
-                    resources.getDimensionPixelSize(R.dimen.item_details_padding) * 2
+            val newWidth = displayMetrics.widthPixels
 
             val newHeight = (newWidth * height) / width
 

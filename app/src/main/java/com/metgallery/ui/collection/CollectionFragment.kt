@@ -41,10 +41,12 @@ class CollectionFragment : Fragment() {
             viewModel.readFromBundle(it)
         }
 
-        viewDataBinding.toolbar.apply {
-            setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material)
-            setNavigationOnClickListener {
-                findNavController().popBackStack()
+        if (!viewModel.isFavouritesOnly()) {
+            viewDataBinding.toolbar.apply {
+                setNavigationIcon(androidx.appcompat.R.drawable.abc_ic_ab_back_material)
+                setNavigationOnClickListener {
+                    findNavController().popBackStack()
+                }
             }
         }
 
