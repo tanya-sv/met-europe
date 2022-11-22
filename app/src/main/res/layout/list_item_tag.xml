@@ -16,15 +16,15 @@
         android:id="@+id/tvTagName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="2dp"
         android:foreground="?attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:paddingStart="4dp"
         android:paddingEnd="4dp"
         android:text="@{`#`+ item.term}"
         android:textColor="@color/link_color"
         android:textSize="16sp"
-        android:textStyle="bold"
+        android:textStyle="normal"
         android:onClick="@{() -> viewmodel.onTagClicked(item)}"
         tools:text="TestTag" />
 </layout>

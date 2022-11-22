@@ -7,6 +7,8 @@
 
         <import type="android.view.View" />
 
+        <import type="android.text.TextUtils" />
+
         <variable
             name="progressBar"
             type="android.widget.ProgressBar" />
@@ -62,6 +64,7 @@
                     android:id="@+id/itemDetails"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
                     android:orientation="vertical"
                     android:visibility="@{viewmodel.isDataAvailable() ? View.VISIBLE : View.GONE}"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +73,8 @@
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp">
 
                         <com.jsibbold.zoomage.ZoomageView
                             android:id="@+id/ivPrimaryImage"
@@ -100,19 +104,19 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="6dp"
-                        android:layout_marginTop="6dp"
+                        android:layout_marginHorizontal="6dp"
+                        android:layout_marginBottom="8dp"
                         android:paddingHorizontal="@dimen/item_details_padding"
-                        android:text="@{viewmodel.itemDetails.title + `, ` + viewmodel.itemDetails.objectDate}"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
+                        android:text="@{viewmodel.itemDetails.title + (TextUtils.isEmpty(viewmodel.itemDetails.objectDate) ?  `` : `, `) + viewmodel.itemDetails.objectDate}"
+                        android:textColor="@color/grey_200"
+                        android:textSize="20sp"
                         android:textStyle="bold"
                         tools:text="Title" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="6dp">
+                        android:layout_marginHorizontal="6dp">
 
                         <TextView
                             android:id="@+id/tvArtistDisplayName"
@@ -139,35 +143,23 @@
                             android:focusable="true"
                             android:paddingHorizontal="@dimen/item_details_padding"
                             android:text="@{viewmodel.itemDetails.artistDisplayBio}"
-                            android:textColor="@color/white"
+                            android:textColor="@color/grey_200"
                             android:textSize="16sp"
                             android:visibility="@{viewmodel.itemDetails.artistDisplayName.empty ? View.GONE : View.VISIBLE}"
                             tools:text="(Artist Bio)" />
 
                     </RelativeLayout>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_margin="8dp"
-                        android:background="@color/grey_700"
-                        android:paddingHorizontal="@dimen/item_details_padding" />
-
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvTags"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+
+                        android:layout_marginVertical="12dp"
                         android:orientation="horizontal"
                         android:paddingHorizontal="@dimen/item_details_padding"
                         app:items="@{viewmodel.itemDetails.tags}"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_margin="8dp"
-                        android:background="@color/grey_700"
-                        android:paddingHorizontal="@dimen/item_details_padding" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -175,7 +167,7 @@
                         android:layout_marginHorizontal="6dp"
                         android:paddingHorizontal="@dimen/item_details_padding"
                         android:text="@{viewmodel.itemDetails.medium}"
-                        android:textColor="@color/white"
+                        android:textColor="@color/grey_200"
                         android:textSize="16sp"
                         tools:text="Oil on canvas" />
 
@@ -185,7 +177,7 @@
                         android:layout_marginHorizontal="6dp"
                         android:paddingHorizontal="@dimen/item_details_padding"
                         android:text="@{viewmodel.itemDetails.dimensions}"
-                        android:textColor="@color/white"
+                        android:textColor="@color/grey_200"
                         android:textSize="16sp"
                         tools:text="25 3/4 x 32 1/4 in. (65.4 x 81.9 cm)" />
 
@@ -195,7 +187,7 @@
                         android:layout_marginHorizontal="6dp"
                         android:paddingHorizontal="@dimen/item_details_padding"
                         android:text="@{viewmodel.itemDetails.classification}"
-                        android:textColor="@color/white"
+                        android:textColor="@color/grey_200"
                         android:textSize="16sp"
                         tools:text="Paintings" />
 
@@ -205,7 +197,7 @@
                         android:layout_marginHorizontal="6dp"
                         android:paddingHorizontal="@dimen/item_details_padding"
                         android:text="@{viewmodel.itemDetails.creditLine}"
-                        android:textColor="@color/white"
+                        android:textColor="@color/grey_200"
                         android:textSize="16sp"
                         tools:text="Bequest of Stephen C. Clark, 1960" />
 
@@ -216,7 +208,7 @@
                         android:autoLink="web"
                         android:paddingHorizontal="@dimen/item_details_padding"
                         android:text="@{viewmodel.itemDetails.objectURL}"
-                        android:textColor="@color/white"
+                        android:textColorLink="@color/link_color"
                         android:textSize="16sp"
                         tools:text="https://www.metmuseum.org/art/collection/search/436851" />
 
