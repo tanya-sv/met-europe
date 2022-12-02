@@ -8,6 +8,7 @@ import com.metgallery.data.AppDatabase
 import com.metgallery.data.CollectionRepository
 import com.metgallery.data.MetCollectionDao
 import com.metgallery.data.api.MetMuseumApi
+import com.metgallery.ui.R
 import com.metgallery.util.getCollectionItemsFromCsvFile
 import dagger.Module
 import dagger.Provides
@@ -74,7 +75,7 @@ object AppModule {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 CoroutineScope(Dispatchers.IO).launch {
                     //prepopulate, this is only called once when the db is created for the first time
-                    val items = getCollectionItemsFromCsvFile(context)
+                    val items = getCollectionItemsFromCsvFile(context, context.getString(R.string.csv_file_name))
                     provider.get().insertAll(items)
                 }
             }

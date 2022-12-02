@@ -26,6 +26,12 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.metgallery.ui.R
 import com.metgallery.ui.databinding.FragmentItemDetailsBinding
+import com.metgallery.util.Consts.ARTIST
+import com.metgallery.util.Consts.FAVOURITE
+import com.metgallery.util.Consts.HEIGHT
+import com.metgallery.util.Consts.OBJECT_ID
+import com.metgallery.util.Consts.TAG
+import com.metgallery.util.Consts.WIDTH
 import com.metgallery.util.EventObserver
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
@@ -80,22 +86,22 @@ class ItemDetailsFragment : Fragment() {
         presetImageSize()
         setupImagePopupMenu()
 
-        val objectId = arguments?.getInt("objectId")
-        val favourite = arguments?.getBoolean("favourite") ?: false
+        val objectId = arguments?.getInt(OBJECT_ID)
+        val favourite = arguments?.getBoolean(FAVOURITE) ?: false
         objectId?.let {
             viewModel.start(objectId, favourite)
         }
 
         viewModel.selectedTag.observe(this.viewLifecycleOwner, EventObserver {
             val bundle = bundleOf(
-                "tag" to it.term
+                TAG to it.term
             )
             findNavController().navigate(R.id.action_ItemDetailsFragment_to_CollectionFragment, bundle)
         })
 
         viewModel.selectedArtist.observe(this.viewLifecycleOwner, EventObserver {
             val bundle = bundleOf(
-                "artist" to it
+                ARTIST to it
             )
             findNavController().navigate(R.id.action_ItemDetailsFragment_to_CollectionFragment, bundle)
         })
@@ -104,8 +110,8 @@ class ItemDetailsFragment : Fragment() {
     //presetting image size to avoid UI jumping up and down
     private fun presetImageSize() {
         arguments?.let {
-            val width = it.getFloat("width")
-            val height = it.getFloat("height")
+            val width = it.getFloat(WIDTH)
+            val height = it.getFloat(HEIGHT)
 
             val displayMetrics = DisplayMetrics()
             (requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager)

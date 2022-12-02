@@ -12,6 +12,10 @@ import com.metgallery.data.model.ArtistNationality
 import com.metgallery.data.model.EuropeanCollectionEra
 import com.metgallery.ui.R
 import com.metgallery.ui.databinding.FragmentCollectionBinding
+import com.metgallery.util.Consts.FAVOURITE
+import com.metgallery.util.Consts.HEIGHT
+import com.metgallery.util.Consts.OBJECT_ID
+import com.metgallery.util.Consts.WIDTH
 import com.metgallery.util.EventObserver
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -69,10 +73,10 @@ class CollectionFragment : Fragment() {
 
         viewModel.selectedItem.observe(this.viewLifecycleOwner, EventObserver {
             val bundle = bundleOf(
-                "objectId" to it.objectId,
-                "width" to it.width,
-                "height" to it.height,
-                "favourite" to it.favourite
+                OBJECT_ID to it.objectId,
+                WIDTH to it.width,
+                HEIGHT to it.height,
+                FAVOURITE to it.favourite
             )
             findNavController().navigate(R.id.action_CollectionFragment_to_ItemDetailsFragment, bundle)
         })

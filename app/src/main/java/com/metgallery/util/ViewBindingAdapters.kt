@@ -23,7 +23,6 @@ fun setLargeImageUrl(photoView: ZoomageView, imageUrl: String, progressBar: Prog
     Glide.with(photoView)
         .load(imageUrl)
         .apply(RequestOptions.overrideOf(Target.SIZE_ORIGINAL))
-        //TODO use placeholder?
         .addListener(object : RequestListener<Drawable> {
             override fun onLoadFailed(
                 e: GlideException?,

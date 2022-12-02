@@ -24,8 +24,7 @@
             android:adjustViewBounds="true"
             android:alpha="0.9"
             android:scaleType="centerCrop"
-            app:imageUrl="@{viewmodel.randomUrl}"
-            tools:src="@drawable/ic_launcher_background" />
+            app:imageUrl="@{viewmodel.randomUrl}" />
 
         <TextView
             android:id="@+id/tvMetTitle"
@@ -55,7 +54,8 @@
             android:layout_above="@id/spinnerArtisNationality"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="12dp"
-            android:background="@drawable/grey_outline" />
+            android:background="@drawable/grey_outline"
+            android:onItemSelected="@{(p1, p2, p3, p4) -> viewmodel.onEraSelected(p1, p2, p3, p4)}"/>
 
         <Spinner
             android:id="@+id/spinnerArtisNationality"
@@ -64,7 +64,8 @@
             android:layout_above="@id/buttonExplore"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="12dp"
-            android:background="@drawable/grey_outline" />
+            android:background="@drawable/grey_outline"
+            android:onItemSelected="@{(p1, p2, p3, p4) -> viewmodel.onArtistNationalitySelected(p1, p2, p3, p4)}"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/buttonExplore"
@@ -74,7 +75,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="12dp"
             android:layout_marginBottom="22dp"
-            android:text="@string/explore" />
+            android:text="@string/explore"
+            android:onClick="@{() -> viewmodel.onExploreClicked()}"/>
 
     </RelativeLayout>
 </layout>

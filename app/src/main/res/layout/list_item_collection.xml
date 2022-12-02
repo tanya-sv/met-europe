@@ -14,11 +14,10 @@
     </data>
 
     <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="@{() -> viewmodel.selectItem(item)}"
-        card_view:cardBackgroundColor="@color/grey_300"
+        card_view:cardBackgroundColor="@color/grey_900"
         card_view:cardCornerRadius="3dp"
         card_view:cardElevation="5dp"
         card_view:cardUseCompatPadding="true">
@@ -30,8 +29,7 @@
             android:adjustViewBounds="true"
             android:contentDescription="@string/collection_item"
             android:scaleType="centerCrop"
-            app:imageUrl="@{item.imageUrl}"
-            tools:src="@drawable/ic_launcher_background" />
+            app:imageUrl="@{item.imageUrl}" />
 
         <CheckBox
             android:id="@+id/checkBoxFavourite"

@@ -5,10 +5,10 @@ import com.metgallery.data.model.MetCollectionItem
 import org.apache.commons.csv.CSVFormat
 import org.apache.commons.csv.QuoteMode
 
-fun getCollectionItemsFromCsvFile(context: Context): List<MetCollectionItem> {
+fun getCollectionItemsFromCsvFile(context: Context, fileName: String): List<MetCollectionItem> {
     val metObjects = mutableListOf<MetCollectionItem>()
 
-    context.assets.open("met_european_paintings.csv").bufferedReader().use {
+    context.assets.open(fileName).bufferedReader().use {
 
         val csvFormat = CSVFormat.Builder
             .create()

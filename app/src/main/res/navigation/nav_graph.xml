@@ -125,7 +125,7 @@
             tools:layout="@layout/fragment_collection">
 
             <argument
-                android:name="favourites"
+                android:name="favouritesOnly"
                 android:defaultValue="true"
                 app:argType="boolean" />
 

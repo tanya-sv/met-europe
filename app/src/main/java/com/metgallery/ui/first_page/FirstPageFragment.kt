@@ -1,9 +1,7 @@
 package com.metgallery.ui.first_page
 
 import android.os.Bundle
-
 import android.view.*
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.core.os.bundleOf
@@ -14,6 +12,9 @@ import com.metgallery.data.model.ArtistNationality
 import com.metgallery.data.model.EuropeanCollectionEra
 import com.metgallery.ui.R
 import com.metgallery.ui.databinding.FragmentFirstPageBinding
+import com.metgallery.util.Consts.ERA
+import com.metgallery.util.Consts.NATIONALITY
+import com.metgallery.util.EventObserver
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -37,16 +38,16 @@ class FirstPageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
 
-        setupEraSpinner()
-        setupArtistNationalitySpinner()
+        viewDataBinding.spinnerEra.adapter = createSpinnerAdapter(EuropeanCollectionEra.values())
+        viewDataBinding.spinnerArtisNationality.adapter = createSpinnerAdapter(ArtistNationality.values())
 
-        viewDataBinding.buttonExplore.setOnClickListener {
+        viewModel.selectedFilters.observe(this.viewLifecycleOwner, EventObserver { selectedFilters ->
             val bundle = bundleOf(
-                "era" to viewModel.selectedEra,
-                "nationality" to viewModel.selectedArtistNationality
+                ERA to selectedFilters.first,
+                NATIONALITY to selectedFilters.second,
             )
             findNavController().navigate(R.id.action_FirstPageFragment_to_CollectionFragment, bundle)
-        }
+        })
     }
 
     private fun <T> createSpinnerAdapter(values: Array<T>): ArrayAdapter<T> {
@@ -73,33 +74,4 @@ class FirstPageFragment : Fragment() {
 
         return adapter
     }
-
-    private fun setupEraSpinner() {
-        viewDataBinding.spinnerEra.apply {
-            this.adapter = createSpinnerAdapter(EuropeanCollectionEra.values())
-
-            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-                    viewModel.selectedEra = EuropeanCollectionEra.values()[position]
-                }
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                }
-            }
-        }
-    }
-
-    private fun setupArtistNationalitySpinner() {
-        viewDataBinding.spinnerArtisNationality.apply {
-            this.adapter = createSpinnerAdapter(ArtistNationality.values())
-
-            onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(p0: AdapterView<*>?, p1: View?, position: Int, p3: Long) {
-                    viewModel.selectedArtistNationality = ArtistNationality.values()[position]
-                }
-                override fun onNothingSelected(p0: AdapterView<*>?) {
-                }
-            }
-        }
-    }
-
 }

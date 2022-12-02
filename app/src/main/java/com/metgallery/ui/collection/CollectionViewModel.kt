@@ -10,6 +10,11 @@ import com.metgallery.data.model.ArtistNationality
 import com.metgallery.data.model.EuropeanCollectionEra
 import com.metgallery.data.model.MetCollectionFavourite
 import com.metgallery.data.model.MetCollectionItem
+import com.metgallery.util.Consts.ARTIST
+import com.metgallery.util.Consts.ERA
+import com.metgallery.util.Consts.FAVOURITES_ONLY
+import com.metgallery.util.Consts.NATIONALITY
+import com.metgallery.util.Consts.TAG
 import com.metgallery.util.Event
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -41,15 +46,15 @@ class CollectionViewModel @Inject constructor(private val collectionRepository: 
     fun getArtist(): String? = _artist
 
     fun readFromBundle(bundle: Bundle) {
-        bundle.getSerializable("era")?.let {
+        bundle.getSerializable(ERA)?.let {
             _era = it as EuropeanCollectionEra
         }
-        bundle.getSerializable("nationality")?.let {
+        bundle.getSerializable(NATIONALITY)?.let {
             _artistNationality = it as ArtistNationality
         }
-        _favouritesOnly = bundle.getBoolean("favourites")
-        _tag = bundle.getString("tag")
-        _artist = bundle.getString("artist")
+        _favouritesOnly = bundle.getBoolean(FAVOURITES_ONLY)
+        _tag = bundle.getString(TAG)
+        _artist = bundle.getString(ARTIST)
     }
 
     fun selectItem(item: MetCollectionItem) {
