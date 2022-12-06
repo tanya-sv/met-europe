@@ -6,11 +6,11 @@
 
         <variable
             name="item"
-            type="com.metgallery.data.model.MetCollectionItem" />
+            type="com.tsvetova.metgallery.data.model.MetCollectionItem" />
 
         <variable
             name="viewmodel"
-            type="com.metgallery.ui.collection.CollectionViewModel" />
+            type="com.tsvetova.metgallery.ui.collection.CollectionViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"

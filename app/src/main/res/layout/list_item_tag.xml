@@ -5,11 +5,11 @@
     <data>
         <variable
             name="item"
-            type="com.metgallery.data.model.Tag" />
+            type="com.tsvetova.metgallery.data.model.Tag" />
 
         <variable
             name="viewmodel"
-            type="com.metgallery.ui.item_details.ItemDetailsViewModel" />
+            type="com.tsvetova.metgallery.ui.item_details.ItemDetailsViewModel" />
     </data>
 
     <TextView

@@ -11,7 +11,7 @@
 
         <fragment
             android:id="@+id/FirstPageFragment"
-            android:name="com.metgallery.ui.first_page.FirstPageFragment"
+            android:name="com.tsvetova.metgallery.ui.first_page.FirstPageFragment"
             android:label="@string/first_page_fragment_label"
             tools:layout="@layout/fragment_first_page">
 
@@ -23,7 +23,7 @@
 
         <fragment
             android:id="@+id/CollectionFragment"
-            android:name="com.metgallery.ui.collection.CollectionFragment"
+            android:name="com.tsvetova.metgallery.ui.collection.CollectionFragment"
             android:label="@string/collection_fragment_label"
             tools:layout="@layout/fragment_collection">
 
@@ -39,7 +39,7 @@
 
         <fragment
             android:id="@+id/ItemDetailsFragment"
-            android:name="com.metgallery.ui.item_details.ItemDetailsFragment"
+            android:name="com.tsvetova.metgallery.ui.item_details.ItemDetailsFragment"
             android:label="@string/item_details_fragment_label"
             tools:layout="@layout/fragment_item_details">
 
@@ -57,7 +57,7 @@
 
         <fragment
             android:id="@+id/SearchFragment"
-            android:name="com.metgallery.ui.search.SearchFragment"
+            android:name="com.tsvetova.metgallery.ui.search.SearchFragment"
             android:label="@string/search_fragment_label"
             tools:layout="@layout/fragment_search">
 
@@ -70,7 +70,7 @@
 
         <fragment
             android:id="@id/CollectionFragment"
-            android:name="com.metgallery.ui.collection.CollectionFragment"
+            android:name="com.tsvetova.metgallery.ui.collection.CollectionFragment"
             android:label="@string/collection_fragment_label"
             tools:layout="@layout/fragment_collection">
 
@@ -86,7 +86,7 @@
 
         <fragment
             android:id="@id/CollectionFragment"
-            android:name="com.metgallery.ui.collection.CollectionFragment"
+            android:name="com.tsvetova.metgallery.ui.collection.CollectionFragment"
             android:label="@string/collection_fragment_label"
             tools:layout="@layout/fragment_collection">
 
@@ -102,7 +102,7 @@
 
         <fragment
             android:id="@+id/ItemDetailsFragment"
-            android:name="com.metgallery.ui.item_details.ItemDetailsFragment"
+            android:name="com.tsvetova.metgallery.ui.item_details.ItemDetailsFragment"
             android:label="@string/item_details_fragment_label"
             tools:layout="@layout/fragment_item_details">
 
@@ -120,7 +120,7 @@
 
         <fragment
             android:id="@+id/FavouritesFragment"
-            android:name="com.metgallery.ui.collection.CollectionFragment"
+            android:name="com.tsvetova.metgallery.ui.collection.CollectionFragment"
             android:label="@string/collection_fragment_label"
             tools:layout="@layout/fragment_collection">
 
@@ -137,7 +137,7 @@
 
         <fragment
             android:id="@id/CollectionFragment"
-            android:name="com.metgallery.ui.collection.CollectionFragment"
+            android:name="com.tsvetova.metgallery.ui.collection.CollectionFragment"
             android:label="@string/collection_fragment_label"
             tools:layout="@layout/fragment_collection">
 
@@ -153,7 +153,7 @@
 
         <fragment
             android:id="@+id/ItemDetailsFragment"
-            android:name="com.metgallery.ui.item_details.ItemDetailsFragment"
+            android:name="com.tsvetova.metgallery.ui.item_details.ItemDetailsFragment"
             android:label="@string/item_details_fragment_label"
             tools:layout="@layout/fragment_item_details">
 

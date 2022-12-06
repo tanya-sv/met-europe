@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.metgallery.ui.first_page.FirstPageViewModel" />
+            type="com.tsvetova.metgallery.ui.first_page.FirstPageViewModel" />
     </data>
 
     <RelativeLayout

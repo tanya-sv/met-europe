@@ -10,7 +10,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.metgallery.ui"
+        applicationId "com.tsvetova.metgallery"
         minSdk 23
         targetSdk 32
         versionCode 1

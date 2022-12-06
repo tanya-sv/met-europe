@@ -11,7 +11,7 @@
 
         <variable
             name="viewmodel"
-            type="com.metgallery.ui.item_details.ItemDetailsViewModel" />
+            type="com.tsvetova.metgallery.ui.item_details.ItemDetailsViewModel" />
     </data>
 
     <RelativeLayout

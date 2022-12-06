@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="com.metgallery.ui.search.SearchViewModel" />
+            type="com.tsvetova.metgallery.ui.search.SearchViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

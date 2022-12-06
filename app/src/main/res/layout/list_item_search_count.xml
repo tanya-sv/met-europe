@@ -6,11 +6,11 @@
 
         <variable
             name="item"
-            type="com.metgallery.data.model.SearchResult" />
+            type="com.tsvetova.metgallery.data.model.SearchResult" />
 
         <variable
             name="viewmodel"
-            type="com.metgallery.ui.search.SearchViewModel" />
+            type="com.tsvetova.metgallery.ui.search.SearchViewModel" />
     </data>
 
     <RelativeLayout
