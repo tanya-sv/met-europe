@@ -21,4 +21,13 @@
     <string name="european_paintings_department">European Paintings Department</string>
     <string name="the_metropolitan_museum_of_art">The Metropolitan Museum of Art</string>
     <string name="search_hint">Search</string>
+
+    <string name="error_loading_data">Error loading data</string>
+    <string name="error_loading_image">Error loading image</string>
+    <string name="error_loading_favourites">Error loading favourites</string>
+    <string name="error_loading_search_results">Error loading search results</string>
+    <string name="image_saved">Image saved!</string>
+    <string name="error_saving_image">Error while saving image</string>
+    <string name="error_downloading_image">Failed to Download Image! Please try again later.</string>
+
 </resources>

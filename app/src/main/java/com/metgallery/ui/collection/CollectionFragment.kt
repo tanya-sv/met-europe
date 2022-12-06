@@ -8,8 +8,6 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.metgallery.data.model.ArtistNationality
-import com.metgallery.data.model.EuropeanCollectionEra
 import com.metgallery.ui.R
 import com.metgallery.ui.databinding.FragmentCollectionBinding
 import com.metgallery.util.Consts.FAVOURITE
@@ -17,6 +15,7 @@ import com.metgallery.util.Consts.HEIGHT
 import com.metgallery.util.Consts.OBJECT_ID
 import com.metgallery.util.Consts.WIDTH
 import com.metgallery.util.EventObserver
+import com.metgallery.util.setupSnackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,6 +52,12 @@ class CollectionFragment : Fragment() {
                 }
             }
         }
+
+        view.setupSnackbar(
+            requireActivity().findViewById(R.id.bottom_navigation),
+            this,
+            viewModel.snackbarText
+        )
 
         viewDataBinding.rvCollection.adapter = CollectionAdapter(viewModel)
 

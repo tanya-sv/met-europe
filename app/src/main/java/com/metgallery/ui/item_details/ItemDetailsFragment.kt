@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.media.MediaScannerConnection
@@ -14,7 +15,6 @@ import android.util.DisplayMetrics
 import android.view.*
 import android.view.GestureDetector.SimpleOnGestureListener
 import android.widget.PopupMenu
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.os.bundleOf
@@ -24,6 +24,7 @@ import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.metgallery.ui.R
 import com.metgallery.ui.databinding.FragmentItemDetailsBinding
 import com.metgallery.util.Consts.ARTIST
@@ -33,6 +34,8 @@ import com.metgallery.util.Consts.OBJECT_ID
 import com.metgallery.util.Consts.TAG
 import com.metgallery.util.Consts.WIDTH
 import com.metgallery.util.EventObserver
+import com.metgallery.util.setupSnackbar
+import com.metgallery.util.showShortSnackbar
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
@@ -44,6 +47,8 @@ class ItemDetailsFragment : Fragment() {
     private val viewModel: ItemDetailsViewModel by viewModels()
 
     private lateinit var viewDataBinding: FragmentItemDetailsBinding
+
+    private lateinit var bottomNavigation: BottomNavigationView
 
     private val storagePermissionRequest =
         registerForActivityResult(
@@ -61,7 +66,6 @@ class ItemDetailsFragment : Fragment() {
     ): View {
         viewDataBinding = FragmentItemDetailsBinding.inflate(inflater, container, false).apply {
             viewmodel = viewModel
-            progressBar = this.indeterminateBar
         }
         return viewDataBinding.root
     }
@@ -80,6 +84,9 @@ class ItemDetailsFragment : Fragment() {
                 onMenuItemClicked(it)
             }
         }
+
+        bottomNavigation = requireActivity().findViewById(R.id.bottom_navigation)
+        view.setupSnackbar(bottomNavigation, this, viewModel.snackbarText)
 
         viewDataBinding.rvTags.adapter = TagsAdapter(viewModel)
 
@@ -105,6 +112,18 @@ class ItemDetailsFragment : Fragment() {
             )
             findNavController().navigate(R.id.action_ItemDetailsFragment_to_CollectionFragment, bundle)
         })
+
+        viewModel.imageLoading.observe(this.viewLifecycleOwner, EventObserver {
+            if (it) {
+                viewDataBinding.ivPrimaryImage.setBackgroundColor(resources.getColor(R.color.grey_900, null))
+            } else {
+                viewDataBinding.ivPrimaryImage.setBackgroundColor(Color.TRANSPARENT)
+            }
+        })
+
+        viewModel.getLoadingStatus().observe(this.viewLifecycleOwner) {
+            viewDataBinding.indeterminateBar.visibility = if (it) View.VISIBLE else View.GONE
+        }
     }
 
     //presetting image size to avoid UI jumping up and down
@@ -128,7 +147,6 @@ class ItemDetailsFragment : Fragment() {
 
     @SuppressLint("ClickableViewAccessibility")
     private fun setupImagePopupMenu() {
-
         val gestureDetector = GestureDetector(object : SimpleOnGestureListener() {
             override fun onLongPress(e: MotionEvent) {
 
@@ -167,6 +185,7 @@ class ItemDetailsFragment : Fragment() {
         }
     }
 
+    //TODO move to utils? viewmodel?
     private fun downloadImage(imageURL: String) {
         if (!verifyPermissions()) {
             return
@@ -190,11 +209,7 @@ class ItemDetailsFragment : Fragment() {
                 override fun onLoadCleared(placeholder: Drawable?) {}
                 override fun onLoadFailed(errorDrawable: Drawable?) {
                     super.onLoadFailed(errorDrawable)
-                    Toast.makeText(
-                        requireActivity(),
-                        "Failed to Download Image! Please try again later.",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    view?.showShortSnackbar(resources.getString(R.string.error_downloading_image), bottomNavigation)
                 }
             })
     }
@@ -209,6 +224,7 @@ class ItemDetailsFragment : Fragment() {
         return true
     }
 
+    //TODO move to view model?
     private fun saveImage(image: Bitmap, storageDir: File, imageFileName: String) {
         val imageFile = File(storageDir, imageFileName)
 
@@ -220,9 +236,9 @@ class ItemDetailsFragment : Fragment() {
             //notify phone about new file
             MediaScannerConnection.scanFile(context, arrayOf(imageFile.absolutePath), null, null)
 
-            Toast.makeText(requireContext(), "Image Saved!", Toast.LENGTH_LONG).show()
+            view?.showShortSnackbar(resources.getString(R.string.image_saved), bottomNavigation)
         } catch (e: Exception) {
-            Toast.makeText(requireContext(), "Error while saving image!", Toast.LENGTH_LONG).show()
+            view?.showShortSnackbar(resources.getString(R.string.error_saving_image), bottomNavigation)
         }
     }
 
