@@ -10,10 +10,6 @@
         <import type="android.text.TextUtils" />
 
         <variable
-            name="progressBar"
-            type="android.widget.ProgressBar" />
-
-        <variable
             name="viewmodel"
             type="com.metgallery.ui.item_details.ItemDetailsViewModel" />
     </data>
@@ -82,8 +78,8 @@
                             android:layout_height="wrap_content"
                             android:adjustViewBounds="true"
                             android:contentDescription="@string/title"
+                            app:callback="@{viewmodel.imageLoadingCallback}"
                             app:largeImageUrl="@{viewmodel.itemDetails.primaryImage ?? ``}"
-                            app:progressBar="@{progressBar}"
                             app:zoomage_animateOnReset="true"
                             app:zoomage_autoCenter="true"
                             app:zoomage_autoResetMode="UNDER"
@@ -91,8 +87,7 @@
                             app:zoomage_minScale="0.6"
                             app:zoomage_restrictBounds="true"
                             app:zoomage_translatable="true"
-                            app:zoomage_zoomable="true"
-                            tools:src="@drawable/ic_launcher_background" />
+                            app:zoomage_zoomable="true" />
 
                         <View
                             android:id="@+id/vPopupMenuAnchor"
@@ -218,7 +213,7 @@
                     android:id="@+id/indeterminateBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toBottomOf="@id/itemDetails"
+                    android:layout_marginTop="100dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

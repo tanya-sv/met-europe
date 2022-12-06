@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.metgallery.ui.R
 import com.metgallery.ui.databinding.FragmentSearchBinding
 import com.metgallery.util.EventObserver
+import com.metgallery.util.setupSnackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -39,6 +40,12 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
+
+        view.setupSnackbar(
+            requireActivity().findViewById(R.id.bottom_navigation),
+            this,
+            viewModel.snackbarText
+        )
 
         viewDataBinding.rvSearchResults.adapter = SearchAdapter(viewModel)
 

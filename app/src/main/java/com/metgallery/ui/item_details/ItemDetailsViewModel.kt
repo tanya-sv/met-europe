@@ -1,14 +1,14 @@
 package com.metgallery.ui.item_details
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.metgallery.data.CollectionRepository
+import com.metgallery.data.Result
 import com.metgallery.data.model.MetCollectionFavourite
 import com.metgallery.data.model.MetObject
 import com.metgallery.data.model.Tag
+import com.metgallery.ui.R
 import com.metgallery.util.Event
+import com.metgallery.util.ImageLoadingCallback
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,19 +20,61 @@ class ItemDetailsViewModel @Inject constructor(private val collectionRepository:
     private val _itemDetails = MutableLiveData<MetObject>().apply { value = MetObject() }
     val itemDetails: LiveData<MetObject?> = _itemDetails
 
+    private val _snackbarText = MutableLiveData<Event<Int>>()
+    val snackbarText: LiveData<Event<Int>> = _snackbarText
+
     private val _isFavourite = MutableLiveData<Boolean>()
 
     private val _isDataAvailable = MutableLiveData<Boolean>()
     val isDataAvailable: LiveData<Boolean> = _isDataAvailable
 
+    private val _imageLoading = MutableLiveData<Event<Boolean>>()
+    val imageLoading: LiveData<Event<Boolean>> = _imageLoading
+
     private val _dataLoading = MutableLiveData<Boolean>()
-    val dataLoading: LiveData<Boolean> = _dataLoading
+
+    //emits true while either image or item details is being loaded
+    fun getLoadingStatus(): LiveData<Boolean> {
+        val mediatorLiveData = MediatorLiveData<Boolean>()
+
+        var isFirstEmitted = false
+        var isSecondEmitted = false
+
+        mediatorLiveData.addSource(_imageLoading) {
+            isFirstEmitted = true
+            if (isFirstEmitted && isSecondEmitted) {
+                mediatorLiveData.value = _imageLoading.value?.peekContent() ?: false || _dataLoading.value ?: false
+            }
+        }
+        mediatorLiveData.addSource(_dataLoading) {
+            isSecondEmitted = true
+            if (isFirstEmitted && isSecondEmitted) {
+                mediatorLiveData.value = _imageLoading.value?.peekContent() ?: false || _dataLoading.value ?: false
+            }
+        }
+        return mediatorLiveData
+    }
 
     private val _selectedTag = MutableLiveData<Event<Tag>>()
     val selectedTag: LiveData<Event<Tag>> = _selectedTag
 
     private val _selectedArtist = MutableLiveData<Event<String>>()
     val selectedArtist: LiveData<Event<String>> = _selectedArtist
+
+    val imageLoadingCallback: ImageLoadingCallback = object : ImageLoadingCallback {
+        override fun onLoading() {
+            _imageLoading.value = Event(true)
+        }
+
+        override fun onSuccess() {
+            _imageLoading.value = Event(false)
+        }
+
+        override fun onError() {
+            _imageLoading.value = Event(false)
+            _snackbarText.value = Event(R.string.error_loading_image)
+        }
+    }
 
     fun onTagClicked(tag: Tag) {
         _selectedTag.value = Event(tag)
@@ -52,14 +94,16 @@ class ItemDetailsViewModel @Inject constructor(private val collectionRepository:
         viewModelScope.launch {
             val result = collectionRepository.getObjectDetailsById(objectId)
 
-            if (result == null) {
-                _itemDetails.value = null
+            if (result is Result.Error) {
+                _itemDetails.value = MetObject()
                 _isDataAvailable.value = false
-            } else {
-                _itemDetails.value = result
+                _imageLoading.value = Event(false)
+                _snackbarText.value = Event(R.string.error_loading_data)
+
+            } else if (result is Result.Success) {
+                _itemDetails.value = result.data
                 _isDataAvailable.value = true
             }
-
             _dataLoading.value = false
         }
     }

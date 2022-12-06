@@ -6,10 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.metgallery.data.CollectionRepository
+import com.metgallery.data.Result
 import com.metgallery.data.model.ArtistNationality
 import com.metgallery.data.model.EuropeanCollectionEra
 import com.metgallery.data.model.MetCollectionFavourite
 import com.metgallery.data.model.MetCollectionItem
+import com.metgallery.ui.R
 import com.metgallery.util.Consts.ARTIST
 import com.metgallery.util.Consts.ERA
 import com.metgallery.util.Consts.FAVOURITES_ONLY
@@ -26,6 +28,9 @@ class CollectionViewModel @Inject constructor(private val collectionRepository: 
 
     private val _items = MutableLiveData<List<MetCollectionItem>>().apply { value = emptyList() }
     val items: LiveData<List<MetCollectionItem>> = _items
+
+    private val _snackbarText = MutableLiveData<Event<Int>>()
+    val snackbarText: LiveData<Event<Int>> = _snackbarText
 
     private val _selectedItem = MutableLiveData<Event<MetCollectionItem>>()
     val selectedItem: LiveData<Event<MetCollectionItem>> = _selectedItem
@@ -63,7 +68,7 @@ class CollectionViewModel @Inject constructor(private val collectionRepository: 
 
     fun loadCollection() {
         viewModelScope.launch {
-            _items.value =
+            val result: Result<List<MetCollectionItem>> =
                 if (_favouritesOnly) collectionRepository.getFavourites()
                 else if (!_tag.isNullOrBlank()) {
                     collectionRepository.searchByTag(_tag!!)
@@ -71,6 +76,12 @@ class CollectionViewModel @Inject constructor(private val collectionRepository: 
                     collectionRepository.searchByArtist(_artist!!)
                 } else
                     collectionRepository.searchEuropeanPaintings(_artistNationality, _era)
+
+            if (result is Result.Success) {
+                _items.value = result.data
+            } else if (result is Result.Error) {
+                _snackbarText.value = Event(if (_favouritesOnly) R.string.error_loading_favourites else R.string.error_loading_data)
+            }
         }
     }
 
@@ -84,10 +95,15 @@ class CollectionViewModel @Inject constructor(private val collectionRepository: 
 
             if (isFavouritesOnly() && !item.favourite) {
                 viewModelScope.launch {
-                    _items.value = collectionRepository.getFavourites()
+
+                    val result = collectionRepository.getFavourites()
+                    if (result is Result.Success) {
+                        _items.value = result.data
+                    } else if (result is Result.Error) {
+                        _snackbarText.value = Event(R.string.error_loading_favourites)
+                    }
                 }
             }
         }
     }
-
 }
