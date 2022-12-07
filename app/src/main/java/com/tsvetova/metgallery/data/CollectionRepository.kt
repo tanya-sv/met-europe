@@ -1,6 +1,6 @@
 package com.tsvetova.metgallery.data
 
-import android.util.Log
+import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.tsvetova.metgallery.data.api.MetMuseumApi
 import com.tsvetova.metgallery.data.model.*
 import kotlinx.coroutines.*
@@ -8,10 +8,9 @@ import javax.inject.Inject
 
 class CollectionRepository @Inject constructor(
     private val metMuseumApi: MetMuseumApi,
-    private val metCollectionDao: MetCollectionDao
+    private val metCollectionDao: MetCollectionDao,
+    private val crashlytics: FirebaseCrashlytics
 ) {
-    private val TAG = "CollectionRepository"
-
     init {
         //triggers creation and pre-population of the database on first run
         CoroutineScope(Dispatchers.IO).launch {
@@ -52,7 +51,7 @@ class CollectionRepository @Inject constructor(
             return Result.Success(metCollectionDao.getAll())
 
         } catch(th: Throwable) {
-            Log.e(TAG, th.message ?: "error in searchEuropeanPaintings $era $artistNationality")
+            crashlytics.recordException(th)
             return Result.Error(th)
         }
     }
@@ -62,7 +61,7 @@ class CollectionRepository @Inject constructor(
             Result.Success(
                 metCollectionDao.getAll().filter { it.tags.map { it.lowercase() }.contains(tag.lowercase()) })
         } catch (th: Throwable) {
-            Log.e(TAG, th.message ?: "error in searchByTag $tag")
+            crashlytics.recordException(th)
             Result.Error(th)
         }
     }
@@ -71,7 +70,7 @@ class CollectionRepository @Inject constructor(
         return try {
             return Result.Success(metCollectionDao.findByArtist(artist))
         } catch (th: Throwable) {
-            Log.e(TAG, th.message ?: "error in searchByArtist $artist")
+            crashlytics.recordException(th)
             Result.Error(th)
         }
     }
@@ -120,7 +119,7 @@ class CollectionRepository @Inject constructor(
             return Result.Success(result.sortedByDescending { it.resultCount })
 
         } catch (th: Throwable) {
-            Log.e("TAG", th.message ?: "error in getCountBySearchTerm $term")
+            crashlytics.recordException(th)
             return Result.Error(th)
         }
     }
@@ -130,7 +129,7 @@ class CollectionRepository @Inject constructor(
             try {
                 Result.Success(metMuseumApi.getObjectById(objectId).body())
             } catch (th: Throwable) {
-                Log.e("TAG", th.message ?: "error in getObjectDetailsById")
+                crashlytics.recordException(th)
                 Result.Error(th)
             }
         }
@@ -140,7 +139,7 @@ class CollectionRepository @Inject constructor(
         return try {
             Result.Success(metCollectionDao.getAllFavourites())
         } catch (th: Throwable) {
-            Log.e(TAG, th.message ?: "error in getFavourites")
+            crashlytics.recordException(th)
             Result.Error(th)
         }
     }

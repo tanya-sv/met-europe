@@ -10,6 +10,9 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import com.jsibbold.zoomage.ZoomageView
 
 @BindingAdapter("app:imageUrl")
@@ -38,7 +41,9 @@ fun setLargeImageUrl(photoView: ZoomageView, imageUrl: String, callback: ImageLo
                     target: Target<Drawable>?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    Log.e("Glide", ex?.message ?: "Error downloading $imageUrl")
+                    ex?.let {
+                        Firebase.crashlytics.recordException(it)
+                    }
                     callback.onError()
                     return false
                 }

@@ -4,6 +4,9 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.google.firebase.crashlytics.FirebaseCrashlytics
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import com.tsvetova.metgallery.data.AppDatabase
 import com.tsvetova.metgallery.data.CollectionRepository
 import com.tsvetova.metgallery.data.MetCollectionDao
@@ -55,9 +58,10 @@ object AppModule {
     @Provides
     fun provideCollectionRepository(
         museumApi: MetMuseumApi,
-        metCollectionDao: MetCollectionDao
+        metCollectionDao: MetCollectionDao,
+        crashlytics: FirebaseCrashlytics
     ): CollectionRepository {
-        return CollectionRepository(museumApi, metCollectionDao)
+        return CollectionRepository(museumApi, metCollectionDao, crashlytics)
     }
 
     @Singleton
@@ -85,5 +89,8 @@ object AppModule {
     @Singleton
     @Provides
     fun provideMetCollectionDao(db: AppDatabase): MetCollectionDao = db.metCollectionDao()
+
+    @Provides
+    fun provideCrashlytics(): FirebaseCrashlytics = Firebase.crashlytics
 
 }
