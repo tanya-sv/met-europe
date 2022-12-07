@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "282454176890",
+    "project_id": "met-europe",
+    "storage_bucket": "met-europe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282454176890:android:8c9ec8cdefd55e4765f7c3",
+        "android_client_info": {
+          "package_name": "com.tsvetova.metgallery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "282454176890-ahb1jafluu8fkebn0usbtr1vjb3rsagn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2EU1KN6hDninLlowrX7OdBfeXcWicqVY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "282454176890-ahb1jafluu8fkebn0usbtr1vjb3rsagn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
