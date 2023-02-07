@@ -16,3 +16,5 @@ The app allows the following:
 - see more details about the object, that comes from the public API of the museum.
 
 The Android technical approach: Kotlin, Coroutines, MVVM, Retrofit & OkHttp, RoomDB, Hilt. For image zooming: https://github.com/jsibbold/zoomage
+
+The data from CSV file is loaded into the Room database on first run. Since it's a static data and never really updated (except for saving the favourites flag), there is no need to repopulate it afterwards. 
